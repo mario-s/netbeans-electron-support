@@ -2,18 +2,23 @@ package io.atom.electron;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import org.openide.util.NbBundle;
 
 final class ElectronPanel extends javax.swing.JPanel {
 
+    private final String invalidPathMessage;
+
     private final ElectronOptionsPanelController controller;
-    
+
     ElectronPanel(ElectronOptionsPanelController controller) {
         this.controller = controller;
         initComponents();
-        
+
         txtPath.getDocument().addDocumentListener(new DocListener());
+        invalidPathMessage = NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.errLblPath.invalid");
     }
 
     /**
@@ -27,6 +32,7 @@ final class ElectronPanel extends javax.swing.JPanel {
         lblPath = new javax.swing.JLabel();
         txtPath = new javax.swing.JTextField();
         btnBrowse = new javax.swing.JButton();
+        errLblPath = new javax.swing.JLabel();
 
         org.openide.awt.Mnemonics.setLocalizedText(lblPath, org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.lblPath.text")); // NOI18N
 
@@ -39,6 +45,9 @@ final class ElectronPanel extends javax.swing.JPanel {
             }
         });
 
+        errLblPath.setForeground(new java.awt.Color(255, 0, 0));
+        org.openide.awt.Mnemonics.setLocalizedText(errLblPath, org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.errLblPath.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -47,7 +56,9 @@ final class ElectronPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(lblPath)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPath, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(errLblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPath, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBrowse)
                 .addContainerGap())
@@ -60,16 +71,18 @@ final class ElectronPanel extends javax.swing.JPanel {
                     .addComponent(lblPath)
                     .addComponent(txtPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBrowse))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(errLblPath, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         int retVal = fileChooser.showOpenDialog(this);
-        if(retVal == JFileChooser.APPROVE_OPTION) {
-           File file = fileChooser.getSelectedFile();
-           txtPath.setText(file.getAbsolutePath());
+        if (retVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            txtPath.setText(file.getAbsolutePath());
         }
     }//GEN-LAST:event_btnBrowseActionPerformed
 
@@ -82,12 +95,23 @@ final class ElectronPanel extends javax.swing.JPanel {
     }
 
     boolean valid() {
-        // TODO check whether form is consistent and complete
-        return true;
+        File f = new File(txtPath.getText());
+        return f.exists() && f.canRead();
+    }
+
+    private void updateErrors() {
+        SwingUtilities.invokeLater(() -> {
+            if (!valid()) {
+                errLblPath.setText(invalidPathMessage);
+            } else {
+                errLblPath.setText("");
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBrowse;
+    private javax.swing.JLabel errLblPath;
     private javax.swing.JLabel lblPath;
     private javax.swing.JTextField txtPath;
     // End of variables declaration//GEN-END:variables
@@ -106,6 +130,7 @@ final class ElectronPanel extends javax.swing.JPanel {
 
         @Override
         public void changedUpdate(DocumentEvent e) {
+            updateErrors();
             controller.changed();
         }
     }
