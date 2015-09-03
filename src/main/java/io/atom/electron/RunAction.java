@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import org.netbeans.api.extexecution.ExecutionDescriptor;
 import org.netbeans.api.extexecution.ExecutionService;
-import org.netbeans.api.extexecution.ExternalProcessBuilder;
 import org.netbeans.api.extexecution.ProcessBuilder;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
@@ -17,8 +16,6 @@ import org.openide.awt.ActionRegistration;
 import org.openide.filesystems.FileUtil;
 import org.openide.util.NbBundle;
 import org.openide.util.NbBundle.Messages;
-import org.openide.windows.IOProvider;
-import org.openide.windows.InputOutput;
 
 @ActionID(
         category = "Build",
@@ -73,7 +70,7 @@ public final class RunAction implements ActionListener {
         FileObject fo = context.getPrimaryFile();
         String [] args = new String[]{FileUtil.getFileDisplayName(fo)};
         
-        org.netbeans.api.extexecution.ProcessBuilder processBuilder = org.netbeans.api.extexecution.ProcessBuilder.getLocal();
+        ProcessBuilder processBuilder = ProcessBuilder.getLocal();
         processBuilder.setExecutable(cmd);
         processBuilder.setArguments(Arrays.asList(args));
         processBuilder.setRedirectErrorStream(true);
