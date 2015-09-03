@@ -12,7 +12,7 @@ public enum PreferencesAccess {
     private static final String EXE = "exe";
     
     public String getExe() {
-        return NbPreferences.forModule(PreferencesAccess.class).get(EXE, "");
+        return NbPreferences.forModule(PreferencesAccess.class).get(EXE, null);
     }
     
     public void putExe(String path) {
