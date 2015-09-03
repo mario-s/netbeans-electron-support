@@ -2,7 +2,9 @@ package io.atom.electron;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import org.netbeans.api.extexecution.ExecutionDescriptor;
 import org.netbeans.api.extexecution.ExecutionService;
 import org.netbeans.api.extexecution.ProcessBuilder;
@@ -28,7 +30,7 @@ import org.openide.util.NbBundle.Messages;
 @Messages("CTL_LaunchAction=Run with Electron")
 public final class RunAction implements ActionListener {
 
-    private static final String ELECTRON = "electron";
+    private static final String ELECTRON = "Electron";
 
     private final DataObject context;
 
@@ -47,40 +49,28 @@ public final class RunAction implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ev) {
-        String cmd = PreferencesAccess.Instance.getExe();
-        if (cmd == null) {
-            showError(getMessage("exe.missing"));
-        } else {
-            launch(cmd);
-        }
-    }
-
-    private String getMessage(String key) {
-        return NbBundle.getMessage(getClass(), key);
-    }
-
-    private void showError(String msg) {
-        NotifyDescriptor notifyDescr = new NotifyDescriptor.Message(msg, NotifyDescriptor.ERROR_MESSAGE);
-        DialogDisplayer.getDefault().notify(notifyDescr);
-    }
-
-   
-
-    private void launch(String cmd) {
         TaskObserver observer = new TaskObserver(this);
-        ProcessBuilder processBuilder = createProcessBuilder(cmd);
+        ProcessBuilder processBuilder = createProcessBuilder();
         ExecutionService service = ExecutionService.newService(processBuilder, descriptor, ELECTRON);
         observer.observe(service.run());
     }
 
-
-    private ProcessBuilder createProcessBuilder(String cmd) {
+    private ProcessBuilder createProcessBuilder() {
+        List<String> args = new ArrayList<>();
+        PreferencesAccess prefAccess = PreferencesAccess.Instance;
+        String exe = prefAccess.getExe();
+        if(exe == null){
+            exe = prefAccess.getCommand();
+            String [] prefArgs = prefAccess.getArguments();
+            args.addAll(Arrays.asList(prefArgs));
+        }
+        
         FileObject fo = context.getPrimaryFile();
-        String[] args = new String[]{FileUtil.getFileDisplayName(fo)};
+        args.add(FileUtil.getFileDisplayName(fo));
 
         ProcessBuilder processBuilder = ProcessBuilder.getLocal();
-        processBuilder.setExecutable(cmd);
-        processBuilder.setArguments(Arrays.asList(args));
+        processBuilder.setExecutable(exe);
+        processBuilder.setArguments(args);
         processBuilder.setRedirectErrorStream(true);
 
         return processBuilder;

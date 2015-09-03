@@ -1,6 +1,7 @@
 package io.atom.electron;
 
 import java.io.File;
+import java.util.Arrays;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
@@ -12,6 +13,8 @@ final class ElectronPanel extends javax.swing.JPanel {
     private final String invalidPathMessage;
 
     private final ElectronOptionsPanelController controller;
+    
+    private final PreferencesAccess prefAccess = PreferencesAccess.Instance;
 
     ElectronPanel(ElectronOptionsPanelController controller) {
         this.controller = controller;
@@ -33,6 +36,8 @@ final class ElectronPanel extends javax.swing.JPanel {
         txtPath = new javax.swing.JTextField();
         btnBrowse = new javax.swing.JButton();
         errLblPath = new javax.swing.JLabel();
+        lblCmd = new javax.swing.JLabel();
+        txtRunCmd = new javax.swing.JTextField();
 
         org.openide.awt.Mnemonics.setLocalizedText(lblPath, org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.lblPath.text")); // NOI18N
 
@@ -48,17 +53,25 @@ final class ElectronPanel extends javax.swing.JPanel {
         errLblPath.setForeground(new java.awt.Color(255, 0, 0));
         org.openide.awt.Mnemonics.setLocalizedText(errLblPath, org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.errLblPath.text")); // NOI18N
 
+        org.openide.awt.Mnemonics.setLocalizedText(lblCmd, org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.lblCmd.text")); // NOI18N
+
+        txtRunCmd.setEditable(false);
+        txtRunCmd.setText(org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.txtRunCmd.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblPath)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPath)
+                    .addComponent(lblCmd))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(errLblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPath, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                    .addComponent(txtPath, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                    .addComponent(txtRunCmd))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBrowse)
                 .addContainerGap())
@@ -66,14 +79,18 @@ final class ElectronPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCmd)
+                    .addComponent(txtRunCmd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPath)
                     .addComponent(txtPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBrowse))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(errLblPath, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -87,11 +104,15 @@ final class ElectronPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBrowseActionPerformed
 
     void load() {
-        txtPath.setText(PreferencesAccess.Instance.getExe());
+        StringBuilder builder = new StringBuilder();
+        builder.append(prefAccess.getCommand()).append(" ");
+        Arrays.asList(prefAccess.getArguments()).forEach(s -> builder.append(s).append(" "));
+        txtRunCmd.setText(builder.toString());
+        txtPath.setText(prefAccess.getExe());
     }
 
     void store() {
-        PreferencesAccess.Instance.putExe(txtPath.getText());
+        prefAccess.putExe(txtPath.getText());
     }
 
     boolean valid() {
@@ -112,8 +133,10 @@ final class ElectronPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBrowse;
     private javax.swing.JLabel errLblPath;
+    private javax.swing.JLabel lblCmd;
     private javax.swing.JLabel lblPath;
     private javax.swing.JTextField txtPath;
+    private javax.swing.JTextField txtRunCmd;
     // End of variables declaration//GEN-END:variables
 
     private class DocListener implements DocumentListener {
