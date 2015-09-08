@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Future;
 import org.netbeans.api.extexecution.ExecutionDescriptor;
 import org.netbeans.api.extexecution.ExecutionService;
 import org.netbeans.api.extexecution.ProcessBuilder;
@@ -49,12 +50,15 @@ public class RunAction implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ev) {
-        TaskObserver observer = new TaskObserver(this);
         ProcessBuilder processBuilder = createProcessBuilder();
         ExecutionService service = ExecutionService.newService(processBuilder, descriptor, ELECTRON);
-        observer.observe(service.run());
+        createObserver().observe(service.run());
     }
-    
+
+    TaskObserver createObserver() {
+        return new TaskObserver(this);
+    }
+
     String getFileDisplayName() {
         FileObject fo = context.getPrimaryFile();
         return FileUtil.getFileDisplayName(fo);
@@ -64,12 +68,12 @@ public class RunAction implements ActionListener {
         List<String> args = new ArrayList<>();
         PreferencesAccess prefAccess = PreferencesAccess.Instance;
         String exe = prefAccess.getExe();
-        if(exe == null){
+        if (exe == null) {
             exe = prefAccess.getCommand();
-            String [] prefArgs = prefAccess.getArguments();
+            String[] prefArgs = prefAccess.getArguments();
             args.addAll(Arrays.asList(prefArgs));
         }
-        
+
         args.add(getFileDisplayName());
 
         ProcessBuilder processBuilder = ProcessBuilder.getLocal();

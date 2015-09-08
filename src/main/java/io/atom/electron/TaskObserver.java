@@ -22,7 +22,7 @@ class TaskObserver {
     
     private static final String EXC = "exc";
 
-    private ActionListener listener;
+    private final ActionListener listener;
 
     TaskObserver(ActionListener listener) {
         this.listener = listener;

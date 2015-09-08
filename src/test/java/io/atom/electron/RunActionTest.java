@@ -1,8 +1,11 @@
 package io.atom.electron;
 
 import java.awt.event.ActionEvent;
+import java.util.concurrent.Future;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import org.netbeans.junit.NbTestCase;
 import org.openide.loaders.DataObject;
 
@@ -10,26 +13,34 @@ import org.openide.loaders.DataObject;
  *
  * @author spindizzy
  */
-public class RunActionTest extends NbTestCase{
-    
+public class RunActionTest extends NbTestCase {
+
     private RunAction instance;
-    
+
+    private TaskObserver taskObserver;
+
     public RunActionTest(String testName) {
         super(testName);
     }
 
     @Override
     protected void setUp() throws Exception {
-        super.setUp(); 
-        
-        DataObject dataObject = mock(DataObject.class);
-        
-        instance = new RunAction(dataObject) {
+        super.setUp();
+
+        taskObserver = mock(TaskObserver.class);
+
+        instance = new RunAction(mock(DataObject.class)) {
 
             @Override
             String getFileDisplayName() {
                 return "test.js";
             }
+
+            @Override
+            TaskObserver createObserver() {
+                return taskObserver;
+            }
+
         };
     }
 
@@ -38,8 +49,8 @@ public class RunActionTest extends NbTestCase{
      */
     @Test
     public void testActionPerformed() {
-        ActionEvent ev = null;
-        instance.actionPerformed(ev);
+        instance.actionPerformed(null);
+        verify(taskObserver).observe(any(Future.class));
     }
-    
+
 }
