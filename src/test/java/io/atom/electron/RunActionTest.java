@@ -1,6 +1,5 @@
 package io.atom.electron;
 
-import java.awt.event.ActionEvent;
 import java.util.concurrent.Future;
 import org.junit.Test;
 import static org.mockito.Matchers.any;
