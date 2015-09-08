@@ -29,7 +29,7 @@ class TaskObserver {
     }
 
     void observe(final Future<Integer> task) {
-        ExecutorService executor = Executors.newFixedThreadPool(3);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             while (!task.isDone()) {
                 try {

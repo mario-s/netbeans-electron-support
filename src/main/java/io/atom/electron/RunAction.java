@@ -28,7 +28,7 @@ import org.openide.util.NbBundle.Messages;
 )
 @ActionReference(path = "Loaders/text/javascript/Actions", position = 0)
 @Messages("CTL_LaunchAction=Run with Electron")
-public final class RunAction implements ActionListener {
+public class RunAction implements ActionListener {
 
     private static final String ELECTRON = "Electron";
 
@@ -54,6 +54,11 @@ public final class RunAction implements ActionListener {
         ExecutionService service = ExecutionService.newService(processBuilder, descriptor, ELECTRON);
         observer.observe(service.run());
     }
+    
+    String getFileDisplayName() {
+        FileObject fo = context.getPrimaryFile();
+        return FileUtil.getFileDisplayName(fo);
+    }
 
     private ProcessBuilder createProcessBuilder() {
         List<String> args = new ArrayList<>();
@@ -65,8 +70,7 @@ public final class RunAction implements ActionListener {
             args.addAll(Arrays.asList(prefArgs));
         }
         
-        FileObject fo = context.getPrimaryFile();
-        args.add(FileUtil.getFileDisplayName(fo));
+        args.add(getFileDisplayName());
 
         ProcessBuilder processBuilder = ProcessBuilder.getLocal();
         processBuilder.setExecutable(exe);
