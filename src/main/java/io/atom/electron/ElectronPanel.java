@@ -14,10 +14,11 @@ final class ElectronPanel extends javax.swing.JPanel {
 
     private final ElectronOptionsPanelController controller;
     
-    private final PreferencesAccess prefAccess = PreferencesAccess.Instance;
+    private final ElectronPreferences prefs;
 
     ElectronPanel(ElectronOptionsPanelController controller) {
         this.controller = controller;
+        this.prefs = new ElectronPreferences();
         initComponents();
 
         txtPath.getDocument().addDocumentListener(new DocListener());
@@ -105,14 +106,14 @@ final class ElectronPanel extends javax.swing.JPanel {
 
     void load() {
         StringBuilder builder = new StringBuilder();
-        builder.append(prefAccess.getCommand()).append(" ");
-        Arrays.asList(prefAccess.getArguments()).forEach(s -> builder.append(s).append(" "));
+        builder.append(prefs.getCommand()).append(" ");
+        Arrays.asList(prefs.getArguments()).forEach(s -> builder.append(s).append(" "));
         txtRunCmd.setText(builder.toString());
-        txtPath.setText(prefAccess.getExe());
+        txtPath.setText(prefs.getExe());
     }
 
     void store() {
-        prefAccess.putExe(txtPath.getText());
+        prefs.putExe(txtPath.getText());
     }
 
     boolean valid() {

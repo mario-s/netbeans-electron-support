@@ -36,11 +36,10 @@ public class RunAction extends AbstractElectronAction{
 
     private ProcessBuilder createProcessBuilder() {
         List<String> args = new ArrayList<>();
-        PreferencesAccess prefAccess = PreferencesAccess.Instance;
-        String exe = prefAccess.getExe();
+        String exe = getPreferences().getExe();
         if (exe == null) {
-            exe = prefAccess.getCommand();
-            String[] prefArgs = prefAccess.getArguments();
+            exe = getPreferences().getCommand();
+            String[] prefArgs = getPreferences().getArguments();
             args.addAll(Arrays.asList(prefArgs));
         }
 

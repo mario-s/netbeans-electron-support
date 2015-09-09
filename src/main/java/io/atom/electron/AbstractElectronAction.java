@@ -18,10 +18,12 @@ public abstract class AbstractElectronAction implements ActionListener {
     private final DataObject context;
     
     private final ExecutionDescriptor descriptor;
+    
+    private final ElectronPreferences preferences;
 
     public AbstractElectronAction(DataObject context) {
         this.context = context;
-        
+        this.preferences = new ElectronPreferences();
         descriptor = new ExecutionDescriptor()
                 .frontWindow(true)
                 .frontWindowOnError(true)
@@ -41,5 +43,9 @@ public abstract class AbstractElectronAction implements ActionListener {
 
     protected ExecutionDescriptor getDescriptor() {
         return descriptor;
+    }
+
+    ElectronPreferences getPreferences() {
+        return preferences;
     }
 }

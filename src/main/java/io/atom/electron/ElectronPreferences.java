@@ -1,31 +1,32 @@
 package io.atom.electron;
 
-import org.openide.util.NbPreferences;
+import static org.openide.util.NbPreferences.forModule;
 
 /**
  *
  * @author spindizzy
  */
-public enum PreferencesAccess {
-
-    Instance;
+class ElectronPreferences {
 
     private static final String EXE = "exe";
     private static final String CMD = "cmd";
     private static final String ELECTRON = "electron";
+    private static final String CMD_SWITCH = "/c";
+    private static final String WIN = "windows";
+    private static final String OSNAME = "os.name";
 
     private final boolean isWin;
 
-    private PreferencesAccess() {
-        isWin = System.getProperty("os.name").toLowerCase().contains("windows");
+    ElectronPreferences() {
+        isWin = System.getProperty(OSNAME).toLowerCase().contains(WIN);
     }
 
     public String getExe() {
-        return NbPreferences.forModule(PreferencesAccess.class).get(EXE, null);
+        return forModule(ElectronPreferences.class).get(EXE, null);
     }
 
     public void putExe(String path) {
-        NbPreferences.forModule(PreferencesAccess.class).put(EXE, path);
+        forModule(ElectronPreferences.class).put(EXE, path);
     }
 
     public String getCommand() {
@@ -38,7 +39,7 @@ public enum PreferencesAccess {
 
     public String[] getArguments() {
         if (isWin) {
-            return new String[]{"/c", ELECTRON};
+            return new String[]{CMD_SWITCH, ELECTRON};
         }
         return new String[]{};
     }
