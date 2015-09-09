@@ -13,7 +13,6 @@ import org.openide.loaders.DataObject;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
-import org.openide.filesystems.FileUtil;
 import org.openide.util.NbBundle.Messages;
 
 @ActionID(
@@ -25,39 +24,17 @@ import org.openide.util.NbBundle.Messages;
 )
 @ActionReference(path = "Loaders/text/javascript/Actions", position = 0)
 @Messages("CTL_LaunchAction=Run with Electron")
-public class RunAction implements ActionListener {
-
-    private static final String ELECTRON = "Electron";
-
-    private final DataObject context;
-
-    private final ExecutionDescriptor descriptor;
+public class RunAction extends AbstractElectronAction{
 
     public RunAction(DataObject context) {
-        this.context = context;
-
-        descriptor = new ExecutionDescriptor()
-                .frontWindow(true)
-                .frontWindowOnError(true)
-                .controllable(true)
-                .showProgress(true)
-                .errLineBased(true);
+        super(context);
     }
 
     @Override
     public void actionPerformed(ActionEvent ev) {
         ProcessBuilder processBuilder = createProcessBuilder();
-        ExecutionService service = ExecutionService.newService(processBuilder, descriptor, ELECTRON);
+        ExecutionService service = ExecutionService.newService(processBuilder, getDescriptor(), ELECTRON);
         createObserver().observe(service.run());
-    }
-
-    TaskObserver createObserver() {
-        return new TaskObserver(this);
-    }
-
-    String getFileDisplayName() {
-        FileObject fo = context.getPrimaryFile();
-        return FileUtil.getFileDisplayName(fo);
     }
 
     private ProcessBuilder createProcessBuilder() {
