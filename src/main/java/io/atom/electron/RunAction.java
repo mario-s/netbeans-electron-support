@@ -45,11 +45,7 @@ public class RunAction extends AbstractElectronAction{
 
         args.add(getFileDisplayName());
 
-        ProcessBuilder processBuilder = ProcessBuilder.getLocal();
-        processBuilder.setExecutable(exe);
-        processBuilder.setArguments(args);
-        processBuilder.setRedirectErrorStream(true);
-
-        return processBuilder;
+        return createProcessBuilder(exe, args);
     }
+
 }

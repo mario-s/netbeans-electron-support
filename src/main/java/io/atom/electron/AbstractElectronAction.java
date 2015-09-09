@@ -1,7 +1,9 @@
 package io.atom.electron;
 
 import java.awt.event.ActionListener;
+import java.util.List;
 import org.netbeans.api.extexecution.ExecutionDescriptor;
+import org.netbeans.api.extexecution.ProcessBuilder;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
 import org.openide.loaders.DataObject;
@@ -47,5 +49,13 @@ public abstract class AbstractElectronAction implements ActionListener {
 
     ElectronPreferences getPreferences() {
         return preferences;
+    }
+
+    protected ProcessBuilder createProcessBuilder(String executable, List<String> arguments) {
+        ProcessBuilder processBuilder = ProcessBuilder.getLocal();
+        processBuilder.setExecutable(executable);
+        processBuilder.setArguments(arguments);
+        processBuilder.setRedirectErrorStream(true);
+        return processBuilder;
     }
 }
