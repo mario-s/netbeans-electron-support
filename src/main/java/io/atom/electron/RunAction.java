@@ -21,8 +21,8 @@ import org.openide.util.NbBundle.Messages;
         displayName = "#CTL_LaunchAction"
 )
 @ActionReferences({
-    @ActionReference(path = "Loaders/text/javascript/Actions", position = 0),
-    @ActionReference(path = "Editors/text/javascript/Popup", position = 10)
+    @ActionReference(path = "Loaders/text/javascript/Actions", position = 655),
+    @ActionReference(path = "Editors/text/javascript/Popup", position = 5055)
 })
 @Messages("CTL_LaunchAction=Run with Electron")
 public class RunAction extends AbstractElectronAction {
