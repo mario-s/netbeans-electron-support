@@ -9,6 +9,7 @@ import org.netbeans.api.extexecution.ProcessBuilder;
 import org.openide.loaders.DataObject;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
+import org.openide.awt.ActionReferences;
 import org.openide.awt.ActionRegistration;
 import org.openide.util.NbBundle.Messages;
 
@@ -19,9 +20,12 @@ import org.openide.util.NbBundle.Messages;
 @ActionRegistration(
         displayName = "#CTL_LaunchAction"
 )
-@ActionReference(path = "Loaders/text/javascript/Actions", position = 0)
+@ActionReferences({
+    @ActionReference(path = "Loaders/text/javascript/Actions", position = 0),
+    @ActionReference(path = "Editors/text/javascript/Popup", position = 10)
+})
 @Messages("CTL_LaunchAction=Run with Electron")
-public class RunAction extends AbstractElectronAction{
+public class RunAction extends AbstractElectronAction {
 
     public RunAction(DataObject context) {
         super(context);

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nbm>
+    <licenseName>Apache License, Version 2.0</licenseName>
+    <licenseFile>LICENSE</licenseFile>
+    <dependencies>
+       <dependency>
+            <id>org.netbeans.modules:org-netbeans-modules-extbrowser</id>
+            <type>impl</type>
+            <explicitValue>org.netbeans.modules.extbrowser/1 = 201411181905</explicitValue>
+        </dependency>
+    </dependencies>
+</nbm>
