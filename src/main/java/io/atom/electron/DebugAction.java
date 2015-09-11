@@ -26,8 +26,8 @@ import org.openide.util.NbBundle.Messages;
         displayName = "#CTL_DebugAction"
 )
 @ActionReferences({
-    @ActionReference(path = "Loaders/text/javascript/Actions", position = 1, separatorAfter = 12),
-    @ActionReference(path = "Editors/text/javascript/Popup", position = 11, separatorAfter = 12)
+    @ActionReference(path = "Loaders/text/javascript/Actions", position = 665, separatorAfter = 667),
+    @ActionReference(path = "Editors/text/javascript/Popup", position = 5065, separatorAfter = 5067)
 })
 @Messages("CTL_DebugAction=Debug with Electron")
 public final class DebugAction extends AbstractElectronAction{
