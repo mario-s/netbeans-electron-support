@@ -35,7 +35,7 @@ public abstract class AbstractElectronAction implements ActionListener {
     }
 
     TaskObserver createObserver() {
-        return new TaskObserver(this);
+        return new TaskObserver();
     }
 
     String getFileDisplayName() {
