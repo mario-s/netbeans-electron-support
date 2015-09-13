@@ -39,7 +39,11 @@ final class ElectronPanel extends javax.swing.JPanel {
         errLblPath = new javax.swing.JLabel();
         lblCmd = new javax.swing.JLabel();
         txtRunCmd = new javax.swing.JTextField();
+        lblDebugPort = new javax.swing.JLabel();
+        txtDebugPort = new javax.swing.JTextField();
+        chkPause = new javax.swing.JCheckBox();
 
+        lblPath.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         org.openide.awt.Mnemonics.setLocalizedText(lblPath, org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.lblPath.text")); // NOI18N
 
         txtPath.setText(org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.txtPath.text")); // NOI18N
@@ -54,10 +58,23 @@ final class ElectronPanel extends javax.swing.JPanel {
         errLblPath.setForeground(new java.awt.Color(255, 0, 0));
         org.openide.awt.Mnemonics.setLocalizedText(errLblPath, org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.errLblPath.text")); // NOI18N
 
+        lblCmd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         org.openide.awt.Mnemonics.setLocalizedText(lblCmd, org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.lblCmd.text")); // NOI18N
 
         txtRunCmd.setEditable(false);
         txtRunCmd.setText(org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.txtRunCmd.text")); // NOI18N
+
+        lblDebugPort.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        org.openide.awt.Mnemonics.setLocalizedText(lblDebugPort, org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.lblDebugPort.text")); // NOI18N
+
+        txtDebugPort.setText(org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.txtDebugPort.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(chkPause, org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.chkPause.text")); // NOI18N
+        chkPause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkPauseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -65,16 +82,23 @@ final class ElectronPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPath)
-                    .addComponent(lblCmd))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblDebugPort, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblCmd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(errLblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPath, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                    .addComponent(txtRunCmd))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBrowse)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(chkPause)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(errLblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPath, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                            .addComponent(txtRunCmd)
+                            .addComponent(txtDebugPort))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBrowse)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -91,7 +115,13 @@ final class ElectronPanel extends javax.swing.JPanel {
                     .addComponent(btnBrowse))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(errLblPath, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDebugPort)
+                    .addComponent(txtDebugPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chkPause)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -104,16 +134,24 @@ final class ElectronPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnBrowseActionPerformed
 
+    private void chkPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkPauseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkPauseActionPerformed
+
     void load() {
         StringBuilder builder = new StringBuilder();
         builder.append(prefs.getCommand()).append(" ");
         Arrays.asList(prefs.getArguments()).forEach(s -> builder.append(s).append(" "));
         txtRunCmd.setText(builder.toString());
         txtPath.setText(prefs.getExe());
+        txtDebugPort.setText(prefs.getDebugPort());
+        chkPause.setSelected(prefs.isBreakOnFirstLine());
     }
 
     void store() {
         prefs.putExe(txtPath.getText());
+        prefs.setBreakOnFirstLine(chkPause.isSelected());
+        prefs.setDebugPort(txtDebugPort.getText());
     }
 
     boolean valid() {
@@ -133,9 +171,12 @@ final class ElectronPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBrowse;
+    private javax.swing.JCheckBox chkPause;
     private javax.swing.JLabel errLblPath;
     private javax.swing.JLabel lblCmd;
+    private javax.swing.JLabel lblDebugPort;
     private javax.swing.JLabel lblPath;
+    private javax.swing.JTextField txtDebugPort;
     private javax.swing.JTextField txtPath;
     private javax.swing.JTextField txtRunCmd;
     // End of variables declaration//GEN-END:variables
