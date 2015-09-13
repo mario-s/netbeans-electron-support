@@ -1,5 +1,7 @@
 package io.atom.electron;
 
+import java.util.ArrayList;
+import java.util.List;
 import static org.openide.util.NbPreferences.forModule;
 
 /**
@@ -56,10 +58,12 @@ class ElectronPreferences {
 
     }
 
-    public String[] getArguments() {
+    public List<String> getArguments() {
+        List<String> args = new ArrayList<>(2);
         if (isWin) {
-            return new String[]{CMD_SWITCH, ELECTRON};
+            args.add(CMD_SWITCH);
+            args.add(ELECTRON);
         }
-        return new String[]{};
+        return args;
     }
 }

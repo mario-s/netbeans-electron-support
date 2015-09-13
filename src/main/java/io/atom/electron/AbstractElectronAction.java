@@ -1,6 +1,7 @@
 package io.atom.electron;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import org.netbeans.api.extexecution.ExecutionDescriptor;
 import org.netbeans.api.extexecution.ProcessBuilder;
@@ -43,6 +44,22 @@ public abstract class AbstractElectronAction implements ActionListener {
         return FileUtil.getFileDisplayName(fo);
     }
 
+    protected void addCommandArguments(List<String> args) {
+        List<String> prefArgs = getPreferences().getArguments();
+        if (!prefArgs.isEmpty()) {
+            args.addAll(prefArgs);
+        }
+        
+        args.add(getFileDisplayName());
+    }
+
+    protected ProcessBuilder createProcessBuilder() {
+        List<String> args = new ArrayList<>();
+        String exe = getExecutable();
+        addCommandArguments(args);
+        return createProcessBuilder(exe, args);
+    }
+
     protected ExecutionDescriptor getDescriptor() {
         return descriptor;
     }
@@ -51,6 +68,14 @@ public abstract class AbstractElectronAction implements ActionListener {
         return preferences;
     }
 
+    protected String getExecutable() {
+        String exe = getPreferences().getExe();
+        if (exe == null) {
+            exe = getPreferences().getCommand();
+        }
+        return exe;
+    }
+    
     protected ProcessBuilder createProcessBuilder(String executable, List<String> arguments) {
         ProcessBuilder processBuilder = ProcessBuilder.getLocal();
         processBuilder.setExecutable(executable);
