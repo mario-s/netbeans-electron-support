@@ -1,7 +1,6 @@
 package io.atom.electron;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,17 +27,14 @@ import org.openide.util.NbBundle.Messages;
     @ActionReference(path = "Editors/text/javascript/Popup", position = 5065, separatorAfter = 5067)
 })
 @Messages("CTL_DebugAction=Debug with Electron")
-public final class DebugAction extends AbstractElectronAction {
+public class DebugAction extends AbstractElectronAction {
 
     private static final String DEBUG_URL = "http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=";
     private static final String DEBUG_SWITCH = "--debug=";
     private static final String BRK_DEBUG_SWITCH = "--debug-brk=";
 
-    private final ChromeBrowser browser;
-
     public DebugAction(DataObject context) {
         super(context);
-        browser = new ChromeBrowser();
     }
 
     @Override
@@ -49,12 +45,17 @@ public final class DebugAction extends AbstractElectronAction {
 
             launchRunAction(ev);
 
-            HtmlBrowser.Impl impl = browser.createHtmlBrowserImpl();
+            HtmlBrowser.Impl impl = createBrowser();
             impl.setURL(url);
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
 
+    }
+
+    HtmlBrowser.Impl createBrowser() {
+        ChromeBrowser browser = new ChromeBrowser();
+        return browser.createHtmlBrowserImpl();
     }
 
     private String getDebugPort() {
@@ -63,7 +64,7 @@ public final class DebugAction extends AbstractElectronAction {
 
     //delegate to run action
     private void launchRunAction(ActionEvent ev) {
-        AbstractElectronAction action = new RunAction(getContext());
+        AbstractElectronAction action = createRunAction();
 
         List<String> args = new ArrayList<>();
         if (getPreferences().isBreakOnFirstLine()) {
@@ -74,5 +75,9 @@ public final class DebugAction extends AbstractElectronAction {
         action.addProcessArguments(args);
 
         action.actionPerformed(ev);
+    }
+
+    AbstractElectronAction createRunAction() {
+        return new RunAction(getContext());
     }
 }

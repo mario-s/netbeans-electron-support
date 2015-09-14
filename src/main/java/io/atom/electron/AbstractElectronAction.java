@@ -61,7 +61,7 @@ public abstract class AbstractElectronAction implements ActionListener {
         return FileUtil.getFileDisplayName(fo);
     }
 
-    final void addProcessArguments(List<String> args) {
+    void addProcessArguments(List<String> args) {
         if (!args.isEmpty()) {
             arguments.addAll(args);
         }
