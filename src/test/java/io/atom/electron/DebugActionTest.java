@@ -2,7 +2,6 @@ package io.atom.electron;
 
 import java.net.URL;
 import java.util.List;
-import java.util.concurrent.Future;
 import org.junit.Test;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
@@ -46,8 +45,6 @@ public class DebugActionTest extends NbTestCase {
             HtmlBrowser.Impl createBrowser() {
                 return browserImpl;
             }
-            
-            
         };
     }
 
