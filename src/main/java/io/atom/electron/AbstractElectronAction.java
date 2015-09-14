@@ -36,6 +36,8 @@ public abstract class AbstractElectronAction implements ActionListener {
                 .controllable(true)
                 .showProgress(true)
                 .errLineBased(true);
+        
+        addProcessArguments(preferences.getArguments());
     }
 
     TaskObserver createObserver() {
@@ -47,38 +49,29 @@ public abstract class AbstractElectronAction implements ActionListener {
         return FileUtil.getFileDisplayName(fo);
     }
 
-    ProcessBuilder createProcessBuilder() {
-        String exe = getExecutable();
-        addProcessArguments(arguments);
-        return createProcessBuilder(exe, arguments);
-    }
-    
-    void addProcessArguments(List<String> args) {
-        List<String> prefArgs = getPreferences().getArguments();
-        if (!prefArgs.isEmpty()) {
-            args.addAll(prefArgs);
+    final void addProcessArguments(List<String> args) {
+        if (!args.isEmpty()) {
+            arguments.addAll(args);
         }
-        
-        args.add(getFileDisplayName());
     }
 
     ExecutionDescriptor getDescriptor() {
         return descriptor;
     }
 
-    ElectronPreferences getPreferences() {
-        return preferences;
-    }
-
-    String getExecutable() {
-        String exe = getPreferences().getExe();
+    private String getExecutable() {
+        String exe = preferences.getExe();
         if (exe == null) {
-            exe = getPreferences().getCommand();
+            exe = preferences.getCommand();
         }
         return exe;
     }
     
-    ProcessBuilder createProcessBuilder(String executable, List<String> arguments) {
+    ProcessBuilder createProcessBuilder() {
+        
+        String executable = getExecutable();
+        arguments.add(getFileDisplayName());
+        
         ProcessBuilder processBuilder = ProcessBuilder.getLocal();
         processBuilder.setExecutable(executable);
         processBuilder.setArguments(arguments);
