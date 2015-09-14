@@ -23,10 +23,13 @@ public abstract class AbstractElectronAction implements ActionListener {
     private final ExecutionDescriptor descriptor;
     
     private final ElectronPreferences preferences;
+    
+    private final List<String> arguments;
 
     public AbstractElectronAction(DataObject context) {
         this.context = context;
         this.preferences = new ElectronPreferences();
+        this.arguments = new ArrayList<>();
         descriptor = new ExecutionDescriptor()
                 .frontWindow(true)
                 .frontWindowOnError(true)
@@ -44,7 +47,13 @@ public abstract class AbstractElectronAction implements ActionListener {
         return FileUtil.getFileDisplayName(fo);
     }
 
-    protected void addCommandArguments(List<String> args) {
+    ProcessBuilder createProcessBuilder() {
+        String exe = getExecutable();
+        addProcessArguments(arguments);
+        return createProcessBuilder(exe, arguments);
+    }
+    
+    void addProcessArguments(List<String> args) {
         List<String> prefArgs = getPreferences().getArguments();
         if (!prefArgs.isEmpty()) {
             args.addAll(prefArgs);
@@ -53,14 +62,7 @@ public abstract class AbstractElectronAction implements ActionListener {
         args.add(getFileDisplayName());
     }
 
-    protected ProcessBuilder createProcessBuilder() {
-        List<String> args = new ArrayList<>();
-        String exe = getExecutable();
-        addCommandArguments(args);
-        return createProcessBuilder(exe, args);
-    }
-
-    protected ExecutionDescriptor getDescriptor() {
+    ExecutionDescriptor getDescriptor() {
         return descriptor;
     }
 
@@ -68,7 +70,7 @@ public abstract class AbstractElectronAction implements ActionListener {
         return preferences;
     }
 
-    protected String getExecutable() {
+    String getExecutable() {
         String exe = getPreferences().getExe();
         if (exe == null) {
             exe = getPreferences().getCommand();
@@ -76,7 +78,7 @@ public abstract class AbstractElectronAction implements ActionListener {
         return exe;
     }
     
-    protected ProcessBuilder createProcessBuilder(String executable, List<String> arguments) {
+    ProcessBuilder createProcessBuilder(String executable, List<String> arguments) {
         ProcessBuilder processBuilder = ProcessBuilder.getLocal();
         processBuilder.setExecutable(executable);
         processBuilder.setArguments(arguments);
