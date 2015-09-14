@@ -19,11 +19,11 @@ public abstract class AbstractElectronAction implements ActionListener {
     protected static final String ELECTRON = "Electron";
 
     private final DataObject context;
-    
+
     private final ExecutionDescriptor descriptor;
-    
+
     private final ElectronPreferences preferences;
-    
+
     private final List<String> arguments;
 
     public AbstractElectronAction(DataObject context) {
@@ -36,14 +36,26 @@ public abstract class AbstractElectronAction implements ActionListener {
                 .controllable(true)
                 .showProgress(true)
                 .errLineBased(true);
-        
+
         addProcessArguments(preferences.getArguments());
+    }
+
+    DataObject getContext() {
+        return context;
     }
 
     TaskObserver createObserver() {
         return new TaskObserver();
     }
 
+    ExecutionDescriptor getDescriptor() {
+        return descriptor;
+    }
+
+    ElectronPreferences getPreferences() {
+        return preferences;
+    }
+    
     String getFileDisplayName() {
         FileObject fo = context.getPrimaryFile();
         return FileUtil.getFileDisplayName(fo);
@@ -55,10 +67,6 @@ public abstract class AbstractElectronAction implements ActionListener {
         }
     }
 
-    ExecutionDescriptor getDescriptor() {
-        return descriptor;
-    }
-
     private String getExecutable() {
         String exe = preferences.getExe();
         if (exe == null) {
@@ -66,12 +74,12 @@ public abstract class AbstractElectronAction implements ActionListener {
         }
         return exe;
     }
-    
+
     ProcessBuilder createProcessBuilder() {
-        
+
         String executable = getExecutable();
         arguments.add(getFileDisplayName());
-        
+
         ProcessBuilder processBuilder = ProcessBuilder.getLocal();
         processBuilder.setExecutable(executable);
         processBuilder.setArguments(arguments);

@@ -1,8 +1,11 @@
 package io.atom.electron;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import org.netbeans.modules.extbrowser.ChromeBrowser;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -25,9 +28,13 @@ import org.openide.util.NbBundle.Messages;
     @ActionReference(path = "Editors/text/javascript/Popup", position = 5065, separatorAfter = 5067)
 })
 @Messages("CTL_DebugAction=Debug with Electron")
-public final class DebugAction extends AbstractElectronAction{
-    
-    private ChromeBrowser browser;
+public final class DebugAction extends AbstractElectronAction {
+
+    private static final String DEBUG_URL = "http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=";
+    private static final String DEBUG_SWITCH = "--debug=";
+    private static final String BRK_DEBUG_SWITCH = "--debug-brk=";
+
+    private final ChromeBrowser browser;
 
     public DebugAction(DataObject context) {
         super(context);
@@ -37,12 +44,35 @@ public final class DebugAction extends AbstractElectronAction{
     @Override
     public void actionPerformed(ActionEvent ev) {
         try {
+
+            URL url = new URL(DEBUG_URL + getDebugPort());
+
+            launchRunAction(ev);
+
             HtmlBrowser.Impl impl = browser.createHtmlBrowserImpl();
-            URL url = new URL("http://www.google.com");
             impl.setURL(url);
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
-       
+
+    }
+
+    private String getDebugPort() {
+        return getPreferences().getDebugPort();
+    }
+
+    //delegate to run action
+    private void launchRunAction(ActionEvent ev) {
+        AbstractElectronAction action = new RunAction(getContext());
+
+        List<String> args = new ArrayList<>();
+        if (getPreferences().isBreakOnFirstLine()) {
+            args.add(DEBUG_SWITCH + getDebugPort());
+        } else {
+            args.add(BRK_DEBUG_SWITCH + getDebugPort());
+        }
+        action.addProcessArguments(args);
+
+        action.actionPerformed(ev);
     }
 }
