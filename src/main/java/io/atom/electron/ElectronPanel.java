@@ -1,15 +1,14 @@
 package io.atom.electron;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import org.openide.awt.HtmlBrowser.URLDisplayer;
 import org.openide.util.Exceptions;
 import org.openide.util.NbBundle;
 
@@ -172,14 +171,11 @@ final class ElectronPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_chkPauseActionPerformed
 
     private void lblNodeInspecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNodeInspecMouseClicked
-        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-            try {
-                URL url = new URL("https://github.com/node-inspector/node-inspector#quick-start");
-                desktop.browse(url.toURI());
-            } catch (IOException | URISyntaxException e) {
-                Exceptions.printStackTrace(e);
-            }
+        try {
+            URL url = new URL("https://github.com/node-inspector/node-inspector#quick-start");
+            URLDisplayer.getDefault().showURL(url);
+        } catch (IOException e) {
+            Exceptions.printStackTrace(e);
         }
     }//GEN-LAST:event_lblNodeInspecMouseClicked
 
