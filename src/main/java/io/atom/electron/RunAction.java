@@ -15,13 +15,13 @@ import org.openide.util.NbBundle.Messages;
         id = "io.atom.electron.RunAction"
 )
 @ActionRegistration(
-        displayName = "#CTL_LaunchAction"
+        displayName = "#CTL_RunAction"
 )
 @ActionReferences({
     @ActionReference(path = "Loaders/text/javascript/Actions", position = 655),
     @ActionReference(path = "Editors/text/javascript/Popup", position = 5055)
 })
-@Messages("CTL_LaunchAction=Run with Electron")
+@Messages("CTL_RunAction=Run with Electron")
 public class RunAction extends AbstractElectronAction {
 
     public RunAction(DataObject context) {
