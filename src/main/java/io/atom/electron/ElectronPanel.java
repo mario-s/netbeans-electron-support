@@ -181,16 +181,16 @@ final class ElectronPanel extends javax.swing.JPanel {
 
     void load() {
         StringBuilder builder = new StringBuilder();
-        builder.append(prefs.getCommand()).append(" ");
-        Arrays.asList(prefs.getArguments()).forEach(s -> builder.append(s).append(" "));
+        builder.append(prefs.getElectronCommand()).append(" ");
+        Arrays.asList(prefs.getElectronArguments()).forEach(s -> builder.append(s).append(" "));
         txtRunCmd.setText(builder.toString());
-        txtPath.setText(prefs.getExe());
+        txtPath.setText(prefs.getExecutable());
         txtDebugPort.setText(prefs.getDebugPort());
         chkPause.setSelected(prefs.isBreakOnFirstLine());
     }
 
     void store() {
-        prefs.putExe(txtPath.getText());
+        prefs.setExecutable(txtPath.getText());
         prefs.setBreakOnFirstLine(chkPause.isSelected());
         prefs.setDebugPort(txtDebugPort.getText());
     }

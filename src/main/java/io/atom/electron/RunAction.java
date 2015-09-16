@@ -23,6 +23,7 @@ import org.openide.util.NbBundle.Messages;
 })
 @Messages("CTL_RunAction=Run with Electron")
 public class RunAction extends AbstractElectronAction {
+    private static final String ELECTRON = "Electron";
 
     public RunAction(DataObject context) {
         super(context);

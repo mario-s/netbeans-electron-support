@@ -16,8 +16,6 @@ import org.openide.loaders.DataObject;
  */
 public abstract class AbstractElectronAction implements ActionListener {
 
-    protected static final String ELECTRON = "Electron";
-
     private final DataObject context;
 
     private final ExecutionDescriptor descriptor;
@@ -37,7 +35,7 @@ public abstract class AbstractElectronAction implements ActionListener {
                 .showProgress(true)
                 .errLineBased(true);
 
-        addProcessArguments(preferences.getArguments());
+        addProcessArguments(preferences.getElectronArguments());
     }
 
     DataObject getContext() {
@@ -68,9 +66,9 @@ public abstract class AbstractElectronAction implements ActionListener {
     }
 
     private String getExecutable() {
-        String exe = preferences.getExe();
+        String exe = preferences.getExecutable();
         if (exe == null) {
-            exe = preferences.getCommand();
+            exe = preferences.getElectronCommand();
         }
         return exe;
     }
@@ -80,9 +78,14 @@ public abstract class AbstractElectronAction implements ActionListener {
         String executable = getExecutable();
         arguments.add(getFileDisplayName());
 
+        return createProcessBuilder(executable, arguments);
+    }
+    
+    ProcessBuilder createProcessBuilder(String executable, List<String> args) {
+
         ProcessBuilder processBuilder = ProcessBuilder.getLocal();
         processBuilder.setExecutable(executable);
-        processBuilder.setArguments(arguments);
+        processBuilder.setArguments(args);
         processBuilder.setRedirectErrorStream(true);
         return processBuilder;
     }

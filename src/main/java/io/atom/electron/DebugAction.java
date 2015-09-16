@@ -32,6 +32,7 @@ public class DebugAction extends AbstractElectronAction {
     private static final String DEBUG_URL = "http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=";
     private static final String DEBUG_SWITCH = "--debug=";
     private static final String BRK_DEBUG_SWITCH = "--debug-brk=";
+    protected static final String ELECTRON = "Electron";
 
     public DebugAction(DataObject context) {
         super(context);
