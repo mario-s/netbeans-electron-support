@@ -3,7 +3,6 @@ package io.atom.electron;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
@@ -196,14 +195,18 @@ final class ElectronPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblNodeInspecMouseClicked
 
     void load() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(prefs.getElectronCommand()).append(" ");
-        Arrays.asList(prefs.getElectronArguments()).forEach(s -> builder.append(s).append(" "));
-        txtRunCmd.setText(builder.toString());
+        txtRunCmd.setText(buildCommandText());
         txtPath.setText(prefs.getExecutable());
         txtDebugUrl.setText(prefs.getDebugUrl());
         txtDebugPort.setText(prefs.getDebugPort());
         chkPause.setSelected(prefs.isBreakOnFirstLine());
+    }
+
+    private String buildCommandText() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(prefs.getElectronCommand()).append(" ");
+        prefs.getElectronArguments().forEach(s -> builder.append(s).append(" "));
+        return builder.toString().trim();
     }
 
     void store() {
