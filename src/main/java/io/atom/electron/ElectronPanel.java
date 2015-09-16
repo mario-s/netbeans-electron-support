@@ -49,6 +49,8 @@ final class ElectronPanel extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         lblReq = new javax.swing.JLabel();
         lblNodeInspec = new javax.swing.JLabel();
+        lblDebugUrl = new javax.swing.JLabel();
+        txtDebugUrl = new javax.swing.JTextField();
 
         lblPath.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         org.openide.awt.Mnemonics.setLocalizedText(lblPath, org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.lblPath.text")); // NOI18N
@@ -94,6 +96,10 @@ final class ElectronPanel extends javax.swing.JPanel {
             }
         });
 
+        org.openide.awt.Mnemonics.setLocalizedText(lblDebugUrl, org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.lblDebugUrl.text")); // NOI18N
+
+        txtDebugUrl.setText(org.openide.util.NbBundle.getMessage(ElectronPanel.class, "ElectronPanel.txtDebugUrl.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,31 +107,37 @@ final class ElectronPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblDebugPort, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblCmd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblReq)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNodeInspec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(chkPause)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblDebugUrl)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(lblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblDebugPort, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblCmd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblReq)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblNodeInspec)
+                                        .addComponent(chkPause)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(errLblPath, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtPath, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
-                                    .addComponent(txtRunCmd, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDebugPort, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBrowse)))))
-                .addContainerGap())
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtDebugUrl, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(errLblPath, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtPath, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                                            .addComponent(txtRunCmd, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtDebugPort, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnBrowse)))))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,14 +158,18 @@ final class ElectronPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblReq)
-                    .addComponent(lblNodeInspec))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lblNodeInspec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDebugUrl)
+                    .addComponent(txtDebugUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDebugPort)
                     .addComponent(txtDebugPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chkPause)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -185,6 +201,7 @@ final class ElectronPanel extends javax.swing.JPanel {
         Arrays.asList(prefs.getElectronArguments()).forEach(s -> builder.append(s).append(" "));
         txtRunCmd.setText(builder.toString());
         txtPath.setText(prefs.getExecutable());
+        txtDebugUrl.setText(prefs.getDebugUrl());
         txtDebugPort.setText(prefs.getDebugPort());
         chkPause.setSelected(prefs.isBreakOnFirstLine());
     }
@@ -192,6 +209,7 @@ final class ElectronPanel extends javax.swing.JPanel {
     void store() {
         prefs.setExecutable(txtPath.getText());
         prefs.setBreakOnFirstLine(chkPause.isSelected());
+        prefs.setDebugUrl(txtDebugUrl.getText());
         prefs.setDebugPort(txtDebugPort.getText());
     }
 
@@ -217,10 +235,12 @@ final class ElectronPanel extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblCmd;
     private javax.swing.JLabel lblDebugPort;
+    private javax.swing.JLabel lblDebugUrl;
     private javax.swing.JLabel lblNodeInspec;
     private javax.swing.JLabel lblPath;
     private javax.swing.JLabel lblReq;
     private javax.swing.JTextField txtDebugPort;
+    private javax.swing.JTextField txtDebugUrl;
     private javax.swing.JTextField txtPath;
     private javax.swing.JTextField txtRunCmd;
     // End of variables declaration//GEN-END:variables
