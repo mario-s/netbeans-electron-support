@@ -18,6 +18,7 @@ class ElectronPreferences {
     private static final String DEBUG_PORT = "debug";
     private static final String DEF_DEBUG_PORT = "5858";
     private static final String BREAK = "brk";
+    private static final String USE_INSPECTOR = "node-inspector";
     
     static final String ELECTRON = "electron";
     static final String NODE_DEBUG = "node-debug";
@@ -50,6 +51,14 @@ class ElectronPreferences {
 
     public void setBreakOnFirstLine(boolean brk) {
         forModule(ElectronPreferences.class).putBoolean(BREAK, brk);
+    }
+    
+    public boolean isUseNodeInspector() {
+        return forModule(ElectronPreferences.class).getBoolean(USE_INSPECTOR, false);
+    }
+    
+    public void setUseNodeInspector(boolean use) {
+        forModule(ElectronPreferences.class).putBoolean(USE_INSPECTOR, use);
     }
 
     public String getElectronCommand() {

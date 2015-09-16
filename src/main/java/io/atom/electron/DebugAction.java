@@ -41,24 +41,20 @@ public class DebugAction extends AbstractElectronAction {
 
     @Override
     public void actionPerformed(ActionEvent ev) {
+        ProcessBuilder processBuilder = createProcessBuilder(getPreferences().getNodeDebugCommand(),
+                getPreferences().getNodeDebugArguments());
+        ExecutionService service = ExecutionService.newService(processBuilder,
+                getDescriptor(), ElectronPreferences.NODE_DEBUG);
+        service.run();
+
         try {
-
-            ProcessBuilder processBuilder = createProcessBuilder(getPreferences().getNodeDebugCommand(),
-                    getPreferences().getNodeDebugArguments());
-            ExecutionService service = ExecutionService.newService(processBuilder,
-                    getDescriptor(), ElectronPreferences.NODE_DEBUG);
-            service.run();
-
             URL url = new URL(DEBUG_URL + getDebugPort());
-
             launchRunAction(ev);
-
             HtmlBrowser.Impl impl = createBrowser();
             impl.setURL(url);
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
-
     }
 
     HtmlBrowser.Impl createBrowser() {
