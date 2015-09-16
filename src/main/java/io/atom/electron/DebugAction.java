@@ -31,7 +31,6 @@ import org.openide.util.NbBundle.Messages;
 @Messages("CTL_DebugAction=Debug with Electron")
 public class DebugAction extends AbstractElectronAction {
 
-    private static final String DEBUG_URL = "http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=";
     private static final String DEBUG_SWITCH = "--debug=";
     private static final String BRK_DEBUG_SWITCH = "--debug-brk=";
 
@@ -48,13 +47,17 @@ public class DebugAction extends AbstractElectronAction {
         service.run();
 
         try {
-            URL url = new URL(DEBUG_URL + getDebugPort());
+            URL url = buildDebugUrl();
+            
             launchRunAction(ev);
-            HtmlBrowser.Impl impl = createBrowser();
-            impl.setURL(url);
+            createBrowser().setURL(url);
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
+    }
+
+    private URL buildDebugUrl() throws MalformedURLException {
+        return new URL(getPreferences().getDebugUrl() + getDebugPort());
     }
 
     HtmlBrowser.Impl createBrowser() {

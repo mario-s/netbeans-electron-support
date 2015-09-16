@@ -19,6 +19,8 @@ class ElectronPreferences {
     private static final String DEF_DEBUG_PORT = "5858";
     private static final String BREAK = "brk";
     private static final String USE_INSPECTOR = "node-inspector";
+    private static final String DEBUG_URL = "debug-url";
+    private static final String DEF_DEBUG_URL = "http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=";
     
     static final String ELECTRON = "electron";
     static final String NODE_DEBUG = "node-debug";
@@ -36,13 +38,21 @@ class ElectronPreferences {
     public void setExecutable(String path) {
         forModule(ElectronPreferences.class).put(EXE, path);
     }
+    
+    public String getDebugUrl() {
+        return forModule(ElectronPreferences.class).get(DEBUG_URL, DEF_DEBUG_URL);
+    }
+    
+    public void setDebugUrl(String url) {
+        forModule(ElectronPreferences.class).put(DEBUG_URL, url);
+    }
 
     public String getDebugPort() {
         return forModule(ElectronPreferences.class).get(DEBUG_PORT, DEF_DEBUG_PORT);
     }
 
     public void setDebugPort(String port) {
-        forModule(ElectronPreferences.class).get(DEBUG_PORT, port);
+        forModule(ElectronPreferences.class).put(DEBUG_PORT, port);
     }
 
     public boolean isBreakOnFirstLine() {
