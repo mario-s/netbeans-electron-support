@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import org.netbeans.api.extexecution.ProcessBuilder;
+import org.netbeans.api.extexecution.ExecutionService;
 import org.netbeans.modules.extbrowser.ChromeBrowser;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -32,7 +34,6 @@ public class DebugAction extends AbstractElectronAction {
     private static final String DEBUG_URL = "http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=";
     private static final String DEBUG_SWITCH = "--debug=";
     private static final String BRK_DEBUG_SWITCH = "--debug-brk=";
-    protected static final String ELECTRON = "Electron";
 
     public DebugAction(DataObject context) {
         super(context);
@@ -41,6 +42,12 @@ public class DebugAction extends AbstractElectronAction {
     @Override
     public void actionPerformed(ActionEvent ev) {
         try {
+
+            ProcessBuilder processBuilder = createProcessBuilder(getPreferences().getNodeDebugCommand(),
+                    getPreferences().getNodeDebugArguments());
+            ExecutionService service = ExecutionService.newService(processBuilder,
+                    getDescriptor(), ElectronPreferences.NODE_DEBUG);
+            service.run();
 
             URL url = new URL(DEBUG_URL + getDebugPort());
 

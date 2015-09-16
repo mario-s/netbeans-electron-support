@@ -23,7 +23,6 @@ import org.openide.util.NbBundle.Messages;
 })
 @Messages("CTL_RunAction=Run with Electron")
 public class RunAction extends AbstractElectronAction {
-    private static final String ELECTRON = "Electron";
 
     public RunAction(DataObject context) {
         super(context);
@@ -32,7 +31,7 @@ public class RunAction extends AbstractElectronAction {
     @Override
     public void actionPerformed(ActionEvent ev) {
         ProcessBuilder processBuilder = createProcessBuilder();
-        ExecutionService service = ExecutionService.newService(processBuilder, getDescriptor(), ELECTRON);
+        ExecutionService service = ExecutionService.newService(processBuilder, getDescriptor(), ElectronPreferences.ELECTRON);
         createObserver().observe(service.run());
     }
 }

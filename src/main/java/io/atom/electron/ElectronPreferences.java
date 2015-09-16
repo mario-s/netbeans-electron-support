@@ -12,14 +12,15 @@ class ElectronPreferences {
 
     private static final String EXE = "exe";
     private static final String CMD = "cmd";
-    private static final String ELECTRON = "electron";
     private static final String CMD_SWITCH = "/c";
     private static final String WIN = "windows";
     private static final String OSNAME = "os.name";
     private static final String DEBUG_PORT = "debug";
     private static final String DEF_DEBUG_PORT = "5858";
     private static final String BREAK = "brk";
-    private static final String NODE_DEBUG = "node-debug";
+    
+    static final String ELECTRON = "electron";
+    static final String NODE_DEBUG = "node-debug";
 
     private final boolean isWin;
 
