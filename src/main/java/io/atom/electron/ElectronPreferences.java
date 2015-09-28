@@ -18,7 +18,7 @@ class ElectronPreferences {
     private static final String DEBUG_PORT = "debug";
     private static final String DEF_DEBUG_PORT = "5858";
     private static final String BREAK = "brk";
-    private static final String USE_INSPECTOR = "node-inspector";
+    private static final String INSPECTOR = "node-inspector";
     private static final String DEBUG_URL = "debug-url";
     private static final String DEF_DEBUG_URL = "http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=";
     
@@ -64,11 +64,11 @@ class ElectronPreferences {
     }
     
     public boolean isUseNodeInspector() {
-        return forModule(ElectronPreferences.class).getBoolean(USE_INSPECTOR, false);
+        return forModule(ElectronPreferences.class).getBoolean(INSPECTOR, false);
     }
     
     public void setUseNodeInspector(boolean use) {
-        forModule(ElectronPreferences.class).putBoolean(USE_INSPECTOR, use);
+        forModule(ElectronPreferences.class).putBoolean(INSPECTOR, use);
     }
 
     public String getElectronCommand() {
