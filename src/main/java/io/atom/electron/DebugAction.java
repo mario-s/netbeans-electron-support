@@ -17,6 +17,8 @@ import org.openide.loaders.DataObject;
 import org.openide.util.Exceptions;
 import org.openide.util.NbBundle.Messages;
 
+import static org.netbeans.api.extexecution.ExecutionService.newService;
+
 @ActionID(
         category = "Build",
         id = "io.atom.electron.DebugAction"
@@ -25,6 +27,7 @@ import org.openide.util.NbBundle.Messages;
         displayName = "#CTL_DebugAction"
 )
 @ActionReferences({
+    @ActionReference(path = "Shortcuts", name = "S-C-F6"),
     @ActionReference(path = "Loaders/text/javascript/Actions", position = 665, separatorAfter = 667),
     @ActionReference(path = "Editors/text/javascript/Popup", position = 5065, separatorAfter = 5067)
 })
@@ -40,20 +43,23 @@ public class DebugAction extends AbstractElectronAction {
 
     @Override
     public void actionPerformed(ActionEvent ev) {
-        ProcessBuilder processBuilder = createProcessBuilder(getPreferences().getNodeDebugCommand(),
-                getPreferences().getNodeDebugArguments());
-        ExecutionService service = ExecutionService.newService(processBuilder,
-                getDescriptor(), ElectronPreferences.NODE_DEBUG);
-        service.run();
-
         try {
             URL url = buildDebugUrl();
             
+            launchDebugger();
             launchRunAction(ev);
             createBrowser().setURL(url);
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
+    }
+
+    void launchDebugger() {
+        ProcessBuilder processBuilder = createProcessBuilder(getPreferences().getNodeDebugCommand(),
+                getPreferences().getNodeDebugArguments());
+        ExecutionService service = newService(processBuilder,
+                getDescriptor(), ElectronPreferences.NODE_DEBUG);
+        service.run();
     }
 
     private URL buildDebugUrl() throws MalformedURLException {

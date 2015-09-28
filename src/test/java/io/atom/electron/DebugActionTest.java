@@ -21,7 +21,7 @@ public class DebugActionTest extends NbTestCase {
     private RunAction delegate;
     
     private HtmlBrowser.Impl browserImpl;
-
+    
     public DebugActionTest(String testName) {
         super(testName);
     }
@@ -33,7 +33,7 @@ public class DebugActionTest extends NbTestCase {
         delegate = mock(RunAction.class);
         
         browserImpl = mock(HtmlBrowser.Impl.class);
-
+        
         instance = new DebugAction(mock(DataObject.class)) {
 
             @Override
@@ -44,6 +44,10 @@ public class DebugActionTest extends NbTestCase {
             @Override
             HtmlBrowser.Impl createBrowser() {
                 return browserImpl;
+            }
+
+            @Override
+            void launchDebugger() {
             }
         };
     }

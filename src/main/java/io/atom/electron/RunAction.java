@@ -18,6 +18,7 @@ import org.openide.util.NbBundle.Messages;
         displayName = "#CTL_RunAction"
 )
 @ActionReferences({
+    @ActionReference(path = "Shortcuts", name = "C-F6"),
     @ActionReference(path = "Loaders/text/javascript/Actions", position = 655),
     @ActionReference(path = "Editors/text/javascript/Popup", position = 5055)
 })
