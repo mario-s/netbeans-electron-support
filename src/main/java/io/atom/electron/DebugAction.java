@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import org.netbeans.api.extexecution.ExecutionDescriptor;
 import org.netbeans.api.extexecution.ProcessBuilder;
 import org.netbeans.api.extexecution.ExecutionService;
 import org.netbeans.modules.extbrowser.ChromeBrowser;
@@ -34,8 +35,7 @@ import static org.netbeans.api.extexecution.ExecutionService.newService;
 @Messages("CTL_DebugAction=Debug with Electron")
 public class DebugAction extends AbstractElectronAction {
 
-    private static final String DEBUG_SWITCH = "--debug=";
-    private static final String BRK_DEBUG_SWITCH = "--debug-brk=";
+    
 
     public DebugAction(DataObject context) {
         super(context);
@@ -45,15 +45,21 @@ public class DebugAction extends AbstractElectronAction {
     public void actionPerformed(ActionEvent ev) {
         try {
             URL url = buildDebugUrl();
-            
-            launchDebugger();
             launchRunAction(ev);
-            createBrowser().setURL(url);
+            launchDebugger();
+            if(getPreferences().isUseNodeInspector()){
+                createBrowser().setURL(url);
+            }
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
     }
 
+    @Override
+    ExecutionDescriptor getDescriptor() {
+        return super.getDescriptor().inputVisible(true);
+    }
+    
     void launchDebugger() {
         ProcessBuilder processBuilder = createProcessBuilder(getPreferences().getNodeDebugCommand(),
                 getPreferences().getNodeDebugArguments());
@@ -78,15 +84,7 @@ public class DebugAction extends AbstractElectronAction {
     //delegate to run action
     private void launchRunAction(ActionEvent ev) {
         AbstractElectronAction action = createRunAction();
-
-        List<String> args = new ArrayList<>();
-        if (getPreferences().isBreakOnFirstLine()) {
-            args.add(DEBUG_SWITCH + getDebugPort());
-        } else {
-            args.add(BRK_DEBUG_SWITCH + getDebugPort());
-        }
-        action.addProcessArguments(args);
-
+        action.addProcessArguments(getPreferences().getElectronDebugArguments());
         action.actionPerformed(ev);
     }
 

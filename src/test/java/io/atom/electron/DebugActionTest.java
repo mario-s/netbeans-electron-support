@@ -58,9 +58,9 @@ public class DebugActionTest extends NbTestCase {
     @Test
     public void testActionPerformed() {
         instance.actionPerformed(null);
-        verify(browserImpl).setURL(any(URL.class));
         verify(delegate).addProcessArguments(any(List.class));
         verify(delegate).actionPerformed(null);
+//        verify(browserImpl).setURL(any(URL.class));
     }
 
 }

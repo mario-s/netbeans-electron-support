@@ -1,6 +1,7 @@
 package io.atom.electron;
 
 import java.util.ArrayList;
+import static java.util.Collections.singletonList;
 import java.util.List;
 import static org.openide.util.NbPreferences.forModule;
 
@@ -21,7 +22,10 @@ class ElectronPreferences {
     private static final String INSPECTOR = "node-inspector";
     private static final String DEBUG_URL = "debug-url";
     private static final String DEF_DEBUG_URL = "http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=";
-    
+
+    private static final String DEBUG_SWITCH = "--debug=";
+    private static final String BRK_DEBUG_SWITCH = "--debug-brk=";
+
     static final String ELECTRON = "electron";
     static final String NODE_DEBUG = "node-debug";
 
@@ -38,11 +42,11 @@ class ElectronPreferences {
     public void setExecutable(String path) {
         forModule(ElectronPreferences.class).put(EXE, path);
     }
-    
+
     public String getDebugUrl() {
         return forModule(ElectronPreferences.class).get(DEBUG_URL, DEF_DEBUG_URL);
     }
-    
+
     public void setDebugUrl(String url) {
         forModule(ElectronPreferences.class).put(DEBUG_URL, url);
     }
@@ -62,11 +66,11 @@ class ElectronPreferences {
     public void setBreakOnFirstLine(boolean brk) {
         forModule(ElectronPreferences.class).putBoolean(BREAK, brk);
     }
-    
+
     public boolean isUseNodeInspector() {
         return forModule(ElectronPreferences.class).getBoolean(INSPECTOR, true);
     }
-    
+
     public void setUseNodeInspector(boolean use) {
         forModule(ElectronPreferences.class).putBoolean(INSPECTOR, use);
     }
@@ -76,6 +80,9 @@ class ElectronPreferences {
     }
 
     public String getNodeDebugCommand() {
+        if (isUseNodeInspector()) {
+            return createCommand(INSPECTOR);
+        }
         return createCommand(NODE_DEBUG);
     }
 
@@ -90,7 +97,17 @@ class ElectronPreferences {
         return createArguments(ELECTRON);
     }
 
+    public List<String> getElectronDebugArguments() {
+        if (isBreakOnFirstLine()) {
+            return singletonList(BRK_DEBUG_SWITCH + getDebugPort());
+        }
+        return singletonList(DEBUG_SWITCH + getDebugPort());
+    }
+
     public List<String> getNodeDebugArguments() {
+        if (isUseNodeInspector()) {
+            return createArguments(INSPECTOR);
+        }
         return createArguments(NODE_DEBUG);
     }
 
