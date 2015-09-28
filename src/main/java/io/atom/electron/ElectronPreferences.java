@@ -64,7 +64,7 @@ class ElectronPreferences {
     }
     
     public boolean isUseNodeInspector() {
-        return forModule(ElectronPreferences.class).getBoolean(INSPECTOR, false);
+        return forModule(ElectronPreferences.class).getBoolean(INSPECTOR, true);
     }
     
     public void setUseNodeInspector(boolean use) {
