@@ -3,8 +3,6 @@ package io.atom.electron;
 import java.awt.event.ActionEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import org.netbeans.api.extexecution.ExecutionDescriptor;
 import org.netbeans.api.extexecution.ProcessBuilder;
 import org.netbeans.api.extexecution.ExecutionService;
@@ -64,7 +62,7 @@ public class DebugAction extends AbstractElectronAction {
         ProcessBuilder processBuilder = createProcessBuilder(getPreferences().getNodeDebugCommand(),
                 getPreferences().getNodeDebugArguments());
         ExecutionService service = newService(processBuilder,
-                getDescriptor(), ElectronPreferences.NODE_DEBUG);
+                getDescriptor(), getPreferences().getDebugProcessName());
         service.run();
     }
 

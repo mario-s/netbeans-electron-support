@@ -20,6 +20,7 @@ class ElectronPreferences {
     private static final String DEF_DEBUG_PORT = "5858";
     private static final String BREAK = "brk";
     private static final String INSPECTOR = "node-inspector";
+    private static final String NODE_DEBUG = "node-debug";
     private static final String DEBUG_URL = "debug-url";
     private static final String DEF_DEBUG_URL = "http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=";
 
@@ -27,7 +28,6 @@ class ElectronPreferences {
     private static final String BRK_DEBUG_SWITCH = "--debug-brk=";
 
     static final String ELECTRON = "electron";
-    static final String NODE_DEBUG = "node-debug";
 
     private final boolean isWin;
 
@@ -80,21 +80,19 @@ class ElectronPreferences {
     }
 
     public String getNodeDebugCommand() {
-        if (isUseNodeInspector()) {
-            return createCommand(INSPECTOR);
-        }
-        return createCommand(NODE_DEBUG);
+        return (isUseNodeInspector()) ? createCommand(INSPECTOR) : createCommand(NODE_DEBUG);
     }
 
-    private String createCommand(String command) {
-        if (isWin) {
-            return CMD;
-        }
-        return command;
+    public String getDebugProcessName() {
+        return (isUseNodeInspector()) ? INSPECTOR : NODE_DEBUG;
     }
 
     public List<String> getElectronArguments() {
         return createArguments(ELECTRON);
+    }
+
+    public List<String> getNodeDebugArguments() {
+        return (isUseNodeInspector()) ? createArguments(INSPECTOR) : createArguments(NODE_DEBUG);
     }
 
     public List<String> getElectronDebugArguments() {
@@ -104,11 +102,11 @@ class ElectronPreferences {
         return singletonList(DEBUG_SWITCH + getDebugPort());
     }
 
-    public List<String> getNodeDebugArguments() {
-        if (isUseNodeInspector()) {
-            return createArguments(INSPECTOR);
+    private String createCommand(String command) {
+        if (isWin) {
+            return CMD;
         }
-        return createArguments(NODE_DEBUG);
+        return command;
     }
 
     private List<String> createArguments(String command) {
