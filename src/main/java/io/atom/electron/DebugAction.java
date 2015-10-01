@@ -33,8 +33,6 @@ import static org.netbeans.api.extexecution.ExecutionService.newService;
 @Messages("CTL_DebugAction=Debug with Electron")
 public class DebugAction extends AbstractElectronAction {
 
-    
-
     public DebugAction(DataObject context) {
         super(context);
     }
@@ -43,11 +41,9 @@ public class DebugAction extends AbstractElectronAction {
     public void actionPerformed(ActionEvent ev) {
         try {
             URL url = buildDebugUrl();
-            launchRunAction(ev);
-            launchDebugger();
-            if(getPreferences().isUseNodeInspector()){
-                createBrowser().setURL(url);
-            }
+            launchDebugger(); //1. start debugger
+            launchRunAction(ev); //2. start app in debug mode
+            createBrowser().setURL(url); //3. open chrome
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
@@ -57,7 +53,7 @@ public class DebugAction extends AbstractElectronAction {
     ExecutionDescriptor getDescriptor() {
         return super.getDescriptor().inputVisible(true);
     }
-    
+
     void launchDebugger() {
         ProcessBuilder processBuilder = createProcessBuilder(getPreferences().getNodeDebugCommand(),
                 getPreferences().getNodeDebugArguments());

@@ -20,7 +20,6 @@ class ElectronPreferences {
     private static final String DEF_DEBUG_PORT = "5858";
     private static final String BREAK = "brk";
     private static final String INSPECTOR = "node-inspector";
-    private static final String NODE_DEBUG = "node-debug";
     private static final String DEBUG_URL = "debug-url";
     private static final String DEF_DEBUG_URL = "http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=";
 
@@ -67,24 +66,16 @@ class ElectronPreferences {
         forModule(ElectronPreferences.class).putBoolean(BREAK, brk);
     }
 
-    public boolean isUseNodeInspector() {
-        return forModule(ElectronPreferences.class).getBoolean(INSPECTOR, true);
-    }
-
-    public void setUseNodeInspector(boolean use) {
-        forModule(ElectronPreferences.class).putBoolean(INSPECTOR, use);
-    }
-
     public String getElectronCommand() {
         return createCommand(ELECTRON);
     }
 
     public String getNodeDebugCommand() {
-        return (isUseNodeInspector()) ? createCommand(INSPECTOR) : createCommand(NODE_DEBUG);
+        return createCommand(INSPECTOR);
     }
 
     public String getDebugProcessName() {
-        return (isUseNodeInspector()) ? INSPECTOR : NODE_DEBUG;
+        return INSPECTOR;
     }
 
     public List<String> getElectronArguments() {
@@ -92,7 +83,7 @@ class ElectronPreferences {
     }
 
     public List<String> getNodeDebugArguments() {
-        return (isUseNodeInspector()) ? createArguments(INSPECTOR) : createArguments(NODE_DEBUG);
+        return createArguments(INSPECTOR);
     }
 
     public List<String> getElectronDebugArguments() {
