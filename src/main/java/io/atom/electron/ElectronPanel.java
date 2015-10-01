@@ -1,5 +1,8 @@
 package io.atom.electron;
 
+import io.atom.electron.cmd.AbstractCommandFactory;
+import io.atom.electron.cmd.AbstractCommandFactory.Type;
+import io.atom.electron.cmd.Command;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -204,8 +207,9 @@ final class ElectronPanel extends javax.swing.JPanel {
 
     private String buildCommandText() {
         StringBuilder builder = new StringBuilder();
-        builder.append(prefs.getElectronCommand()).append(" ");
-        prefs.getElectronArguments().forEach(s -> builder.append(s).append(" "));
+        Command cmd = AbstractCommandFactory.createCommand(Type.ELECTRON_RUN);
+        builder.append(cmd.getExecutable()).append(" ");
+        cmd.getArguments().forEach(s -> builder.append(s).append(" "));
         return builder.toString().trim();
     }
 

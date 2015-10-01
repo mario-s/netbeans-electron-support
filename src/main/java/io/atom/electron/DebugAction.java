@@ -1,5 +1,7 @@
 package io.atom.electron;
 
+import io.atom.electron.cmd.AbstractCommandFactory;
+import io.atom.electron.cmd.AbstractCommandFactory.Type;
 import java.awt.event.ActionEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,6 +19,8 @@ import org.openide.util.Exceptions;
 import org.openide.util.NbBundle.Messages;
 
 import static org.netbeans.api.extexecution.ExecutionService.newService;
+import static io.atom.electron.cmd.AbstractCommandFactory.createCommand;
+import io.atom.electron.cmd.Command;
 
 @ActionID(
         category = "Build",
@@ -55,10 +59,11 @@ public class DebugAction extends AbstractElectronAction {
     }
 
     void launchDebugger() {
-        ProcessBuilder processBuilder = createProcessBuilder(getPreferences().getNodeDebugCommand(),
-                getPreferences().getNodeDebugArguments());
+        Command cmd = createCommand(Type.INSPECTOR);
+        ProcessBuilder processBuilder = createProcessBuilder(cmd.getExecutable(),
+                cmd.getArguments());
         ExecutionService service = newService(processBuilder,
-                getDescriptor(), getPreferences().getDebugProcessName());
+                getDescriptor(), "node-inspector");
         service.run();
     }
 

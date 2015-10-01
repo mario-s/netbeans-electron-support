@@ -32,7 +32,7 @@ public class RunAction extends AbstractElectronAction {
     @Override
     public void actionPerformed(ActionEvent ev) {
         ProcessBuilder processBuilder = createProcessBuilder();
-        ExecutionService service = ExecutionService.newService(processBuilder, getDescriptor(), ElectronPreferences.ELECTRON);
+        ExecutionService service = ExecutionService.newService(processBuilder, getDescriptor(), "Electron");
         createObserver().observe(service.run());
     }
 }

@@ -1,5 +1,8 @@
 package io.atom.electron;
 
+import io.atom.electron.cmd.AbstractCommandFactory;
+import io.atom.electron.cmd.AbstractCommandFactory.Type;
+import io.atom.electron.cmd.Command;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +38,8 @@ public abstract class AbstractElectronAction implements ActionListener {
                 .showProgress(true)
                 .errLineBased(true);
 
-        addProcessArguments(preferences.getElectronArguments());
+        Command cmd = AbstractCommandFactory.createCommand(Type.ELECTRON_RUN);
+        addProcessArguments(cmd.getArguments());
     }
 
     DataObject getContext() {
@@ -66,9 +70,11 @@ public abstract class AbstractElectronAction implements ActionListener {
     }
 
     private String getExecutable() {
+        //TODO review
         String exe = preferences.getExecutable();
         if (exe == null) {
-            exe = preferences.getElectronCommand();
+            Command cmd = AbstractCommandFactory.createCommand(Type.ELECTRON_RUN);
+            exe = cmd.getExecutable();
         }
         return exe;
     }
