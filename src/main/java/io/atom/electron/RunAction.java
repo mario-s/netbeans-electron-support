@@ -1,5 +1,7 @@
 package io.atom.electron;
 
+import static io.atom.electron.cmd.AbstractCommandFactory.createCommand;
+import io.atom.electron.cmd.CommandType;
 import java.awt.event.ActionEvent;
 import org.netbeans.api.extexecution.ExecutionService;
 import org.netbeans.api.extexecution.ProcessBuilder;
@@ -27,12 +29,12 @@ public class RunAction extends AbstractElectronAction {
 
     public RunAction(DataObject context) {
         super(context);
+        setCommand(createCommand(new CommandType()));
     }
 
     @Override
     public void actionPerformed(ActionEvent ev) {
-        ProcessBuilder processBuilder = createProcessBuilder();
-        ExecutionService service = ExecutionService.newService(processBuilder, getDescriptor(), "Electron");
+        ExecutionService service = ExecutionService.newService(createProcessBuilder(), getDescriptor(), "Electron");
         createObserver().observe(service.run());
     }
 }

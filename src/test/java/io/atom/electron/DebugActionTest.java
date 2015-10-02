@@ -1,5 +1,6 @@
 package io.atom.electron;
 
+import io.atom.electron.cmd.Command;
 import java.net.URL;
 import java.util.List;
 import org.junit.Test;
@@ -47,7 +48,7 @@ public class DebugActionTest extends NbTestCase {
             }
 
             @Override
-            void launchDebugger() {
+            void launchInspector() {
             }
         };
     }
@@ -58,7 +59,6 @@ public class DebugActionTest extends NbTestCase {
     @Test
     public void testActionPerformed() {
         instance.actionPerformed(null);
-        verify(delegate).addProcessArguments(any(List.class));
         verify(delegate).actionPerformed(null);
 //        verify(browserImpl).setURL(any(URL.class));
     }

@@ -1,7 +1,5 @@
 package io.atom.electron;
 
-import io.atom.electron.cmd.AbstractCommandFactory;
-import io.atom.electron.cmd.AbstractCommandFactory.Type;
 import io.atom.electron.cmd.Command;
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +11,10 @@ import javax.swing.event.DocumentListener;
 import org.openide.awt.HtmlBrowser.URLDisplayer;
 import org.openide.util.Exceptions;
 import org.openide.util.NbBundle;
+
+import static io.atom.electron.cmd.AbstractCommandFactory.createCommand;
+import io.atom.electron.cmd.CommandType;
+import io.atom.electron.cmd.CommandType.Type;
 
 final class ElectronPanel extends javax.swing.JPanel {
 
@@ -207,7 +209,7 @@ final class ElectronPanel extends javax.swing.JPanel {
 
     private String buildCommandText() {
         StringBuilder builder = new StringBuilder();
-        Command cmd = AbstractCommandFactory.createCommand(Type.ELECTRON_RUN);
+        Command cmd = createCommand(new CommandType(Type.ELECTRON_RUN));
         builder.append(cmd.getExecutable()).append(" ");
         cmd.getArguments().forEach(s -> builder.append(s).append(" "));
         return builder.toString().trim();

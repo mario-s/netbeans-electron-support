@@ -2,7 +2,7 @@ package io.atom.electron.cmd;
 
 /**
  * Factory to call node-inspector.
- * @author schroeder
+ * @author spindizzy
  */
 class NodeInspectorCommandFactory extends AbstractCommandFactory{
     

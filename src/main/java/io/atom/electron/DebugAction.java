@@ -1,7 +1,5 @@
 package io.atom.electron;
 
-import io.atom.electron.cmd.AbstractCommandFactory;
-import io.atom.electron.cmd.AbstractCommandFactory.Type;
 import java.awt.event.ActionEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,6 +19,8 @@ import org.openide.util.NbBundle.Messages;
 import static org.netbeans.api.extexecution.ExecutionService.newService;
 import static io.atom.electron.cmd.AbstractCommandFactory.createCommand;
 import io.atom.electron.cmd.Command;
+import io.atom.electron.cmd.CommandType;
+import io.atom.electron.cmd.CommandType.Type;
 
 @ActionID(
         category = "Build",
@@ -39,13 +39,15 @@ public class DebugAction extends AbstractElectronAction {
 
     public DebugAction(DataObject context) {
         super(context);
+        CommandType type = new CommandType(Type.ELECTRON_DEBUG, getPreferences());
+        setCommand(createCommand(type));
     }
 
     @Override
     public void actionPerformed(ActionEvent ev) {
         try {
             URL url = buildDebugUrl();
-            launchDebugger(); //1. start debugger
+            launchInspector(); //1. start debugger
             launchRunAction(ev); //2. start app in debug mode
             createBrowser().setURL(url); //3. open chrome
         } catch (MalformedURLException ex) {
@@ -58,8 +60,8 @@ public class DebugAction extends AbstractElectronAction {
         return super.getDescriptor().inputVisible(true);
     }
 
-    void launchDebugger() {
-        Command cmd = createCommand(Type.INSPECTOR);
+    void launchInspector() {
+        Command cmd = createCommand(new CommandType(Type.INSPECTOR));
         ProcessBuilder processBuilder = createProcessBuilder(cmd.getExecutable(),
                 cmd.getArguments());
         ExecutionService service = newService(processBuilder,
@@ -83,7 +85,7 @@ public class DebugAction extends AbstractElectronAction {
     //delegate to run action
     private void launchRunAction(ActionEvent ev) {
         AbstractElectronAction action = createRunAction();
-        action.addProcessArguments(getPreferences().getElectronDebugArguments());
+        action.setCommand(getCommand());
         action.actionPerformed(ev);
     }
 

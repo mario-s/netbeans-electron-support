@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author schroeder
+ * @author spindizzy
  */
 class DefaultCommand implements Command {
 

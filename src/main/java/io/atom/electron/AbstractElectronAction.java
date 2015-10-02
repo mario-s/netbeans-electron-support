@@ -1,8 +1,9 @@
 package io.atom.electron;
 
-import io.atom.electron.cmd.AbstractCommandFactory;
-import io.atom.electron.cmd.AbstractCommandFactory.Type;
+import static io.atom.electron.cmd.AbstractCommandFactory.createCommand;
 import io.atom.electron.cmd.Command;
+import io.atom.electron.cmd.CommandType;
+import io.atom.electron.cmd.CommandType.Type;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,8 @@ public abstract class AbstractElectronAction implements ActionListener {
     private final ElectronPreferences preferences;
 
     private final List<String> arguments;
+    
+    private Command command;
 
     public AbstractElectronAction(DataObject context) {
         this.context = context;
@@ -37,9 +40,6 @@ public abstract class AbstractElectronAction implements ActionListener {
                 .controllable(true)
                 .showProgress(true)
                 .errLineBased(true);
-
-        Command cmd = AbstractCommandFactory.createCommand(Type.ELECTRON_RUN);
-        addProcessArguments(cmd.getArguments());
     }
 
     DataObject getContext() {
@@ -63,25 +63,34 @@ public abstract class AbstractElectronAction implements ActionListener {
         return FileUtil.getFileDisplayName(fo);
     }
 
-    void addProcessArguments(List<String> args) {
+    private String getExecutable() {
+        //TODO review
+        String exe = preferences.getExecutable();
+        if (exe == null) {
+            exe = command.getExecutable();
+        }
+        return exe;
+    }
+    
+    final void setCommand(Command command) {
+        this.command = command;
+    }
+    
+    final Command getCommand() {
+        return command;
+    }
+    
+    private void addProcessArguments(List<String> args) {
         if (!args.isEmpty()) {
             arguments.addAll(args);
         }
     }
 
-    private String getExecutable() {
-        //TODO review
-        String exe = preferences.getExecutable();
-        if (exe == null) {
-            Command cmd = AbstractCommandFactory.createCommand(Type.ELECTRON_RUN);
-            exe = cmd.getExecutable();
-        }
-        return exe;
-    }
-
     ProcessBuilder createProcessBuilder() {
 
         String executable = getExecutable();
+        addProcessArguments(command.getArguments());
+        
         arguments.add(getFileDisplayName());
 
         return createProcessBuilder(executable, arguments);

@@ -10,11 +10,6 @@ import java.util.List;
  */
 public abstract class AbstractCommandFactory {
 
-    public enum Type {
-
-        ELECTRON_RUN, INSPECTOR
-    };
-
     private static final String CMD = "cmd";
     private static final String CMD_SWITCH = "/c";
     private static final String OSNAME = "os.name";
@@ -25,10 +20,10 @@ public abstract class AbstractCommandFactory {
         isWin = System.getProperty(OSNAME).toLowerCase().contains(WIN);
     }
 
-    public static Command createCommand(Type type) {
+    public static Command createCommand(CommandType cmdType) {
         AbstractCommandFactory factory = null;
 
-        switch (type) {
+        switch (cmdType.getType()) {
             case INSPECTOR:
                 factory = new NodeInspectorCommandFactory();
                 break;
@@ -47,7 +42,7 @@ public abstract class AbstractCommandFactory {
     }
 
     protected List<String> createArguments(String command) {
-        List<String> args = new ArrayList<>(2);
+        List<String> args = new ArrayList<>();
         if (isWin) {
             args.add(CMD_SWITCH);
             args.add(command);
