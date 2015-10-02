@@ -10,11 +10,12 @@ import java.util.List;
  */
 public abstract class AbstractCommandFactory {
 
-    private static final String CMD = "cmd";
-    private static final String CMD_SWITCH = "/c";
     private static final String OSNAME = "os.name";
     private static final String WIN = "windows";
     private final boolean isWin;
+
+    static final String CMD = "cmd";
+    static final String CMD_SWITCH = "/c";
 
     AbstractCommandFactory() {
         isWin = System.getProperty(OSNAME).toLowerCase().contains(WIN);
@@ -26,6 +27,9 @@ public abstract class AbstractCommandFactory {
         switch (cmdType.getType()) {
             case INSPECTOR:
                 factory = new NodeInspectorCommandFactory();
+                break;
+            case ELECTRON_DEBUG:
+                factory = new ElectronDebugCommandFactory(cmdType.getPreferences());
                 break;
             default:
                 factory = new ElectronRunCommandFactory();
