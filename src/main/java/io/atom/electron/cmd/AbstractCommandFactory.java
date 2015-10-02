@@ -22,7 +22,7 @@ public abstract class AbstractCommandFactory {
     }
 
     public static Command createCommand(CommandType cmdType) {
-        AbstractCommandFactory factory = null;
+        AbstractCommandFactory factory;
 
         switch (cmdType.getType()) {
             case INSPECTOR:
