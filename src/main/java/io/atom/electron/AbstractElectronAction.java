@@ -79,24 +79,22 @@ public abstract class AbstractElectronAction implements ActionListener {
     final Command getCommand() {
         return command;
     }
-    
-    private void addProcessArguments(List<String> args) {
-        if (!args.isEmpty()) {
-            arguments.addAll(args);
-        }
-    }
 
     ProcessBuilder createProcessBuilder() {
 
         String executable = getExecutable();
-        addProcessArguments(command.getArguments());
+        arguments.addAll(command.getArguments());
         
         arguments.add(getFileDisplayName());
 
         return createProcessBuilder(executable, arguments);
     }
     
-    ProcessBuilder createProcessBuilder(String executable, List<String> args) {
+    ProcessBuilder createProcessBuilder(Command command) {
+        return createProcessBuilder(command.getExecutable(), command.getArguments());
+    }
+    
+    private ProcessBuilder createProcessBuilder(String executable, List<String> args) {
 
         ProcessBuilder processBuilder = ProcessBuilder.getLocal();
         processBuilder.setExecutable(executable);

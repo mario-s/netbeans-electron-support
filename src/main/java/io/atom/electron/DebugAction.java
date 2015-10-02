@@ -62,8 +62,7 @@ public class DebugAction extends AbstractElectronAction {
 
     void launchInspector() {
         Command cmd = createCommand(new CommandType(Type.INSPECTOR));
-        ProcessBuilder processBuilder = createProcessBuilder(cmd.getExecutable(),
-                cmd.getArguments());
+        ProcessBuilder processBuilder = createProcessBuilder(cmd);
         ExecutionService service = newService(processBuilder,
                 getDescriptor(), "node-inspector");
         service.run();
