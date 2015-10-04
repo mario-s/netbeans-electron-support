@@ -1,9 +1,6 @@
 package io.atom.electron;
 
-import static io.atom.electron.cmd.AbstractCommandFactory.createCommand;
 import io.atom.electron.cmd.Command;
-import io.atom.electron.cmd.CommandType;
-import io.atom.electron.cmd.CommandType.Type;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
