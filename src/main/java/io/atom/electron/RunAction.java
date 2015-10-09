@@ -4,7 +4,6 @@ import static io.atom.electron.cmd.AbstractCommandFactory.createCommand;
 import io.atom.electron.cmd.CommandType;
 import java.awt.event.ActionEvent;
 import org.netbeans.api.extexecution.ExecutionService;
-import org.netbeans.api.extexecution.ProcessBuilder;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionReferences;
@@ -26,6 +25,7 @@ import org.openide.util.NbBundle.Messages;
 })
 @Messages("CTL_RunAction=Run with Electron")
 public class RunAction extends AbstractElectronAction {
+    private static final String PROCESS_NAME = "Electron";
 
     public RunAction(DataObject context) {
         super(context);
@@ -34,7 +34,7 @@ public class RunAction extends AbstractElectronAction {
 
     @Override
     public void actionPerformed(ActionEvent ev) {
-        ExecutionService service = ExecutionService.newService(createProcessBuilder(), getDescriptor(), "Electron");
+        ExecutionService service = ExecutionService.newService(createProcessBuilder(), getDescriptor(), PROCESS_NAME);
         createObserver().observe(service.run());
     }
 }

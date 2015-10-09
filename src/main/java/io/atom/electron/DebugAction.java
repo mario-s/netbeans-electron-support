@@ -21,6 +21,7 @@ import static io.atom.electron.cmd.AbstractCommandFactory.createCommand;
 import io.atom.electron.cmd.Command;
 import io.atom.electron.cmd.CommandType;
 import io.atom.electron.cmd.CommandType.Type;
+import java.util.concurrent.Future;
 
 @ActionID(
         category = "Build",
@@ -36,6 +37,9 @@ import io.atom.electron.cmd.CommandType.Type;
 })
 @Messages("CTL_DebugAction=Debug with Electron")
 public class DebugAction extends AbstractElectronAction {
+    private static final String PROCESS_NAME = "node-inspector";
+
+    private static Future<Integer> inspectorTask;
 
     public DebugAction(DataObject context) {
         super(context);
@@ -61,11 +65,13 @@ public class DebugAction extends AbstractElectronAction {
     }
 
     void launchInspector() {
-        Command cmd = createCommand(new CommandType(Type.INSPECTOR));
-        ProcessBuilder processBuilder = createProcessBuilder(cmd);
-        ExecutionService service = newService(processBuilder,
-                getDescriptor(), "node-inspector");
-        service.run();
+        if (inspectorTask == null || inspectorTask.isDone()) {
+            Command cmd = createCommand(new CommandType(Type.INSPECTOR));
+            ProcessBuilder processBuilder = createProcessBuilder(cmd);
+            ExecutionService service = newService(processBuilder,
+                    getDescriptor(), PROCESS_NAME);
+            inspectorTask = service.run();
+        }
     }
 
     private URL buildDebugUrl() throws MalformedURLException {
