@@ -43,7 +43,7 @@ public class DebugAction extends AbstractElectronAction {
 
     public DebugAction(DataObject context) {
         super(context);
-        CommandType type = new CommandType(Type.ELECTRON_DEBUG, getPreferences());
+        CommandType type = createCommandType(Type.ELECTRON_DEBUG);
         setCommand(createCommand(type));
     }
 

@@ -32,7 +32,7 @@ public abstract class AbstractCommandFactory {
                 factory = new ElectronDebugCommandFactory(cmdType.getPreferences());
                 break;
             default:
-                factory = new ElectronRunCommandFactory();
+                factory = new ElectronRunCommandFactory(cmdType.getPreferences());
         }
 
         return factory.createCommand();

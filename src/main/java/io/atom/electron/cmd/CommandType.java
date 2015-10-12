@@ -17,10 +17,6 @@ public class CommandType {
     private Preferences preferences;
 
     private Type type;
-
-    public CommandType() {
-        type = Type.ELECTRON_RUN;
-    }
     
     public CommandType(Type type) {
         this(type, null);

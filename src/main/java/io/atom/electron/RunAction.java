@@ -29,7 +29,8 @@ public class RunAction extends AbstractElectronAction {
 
     public RunAction(DataObject context) {
         super(context);
-        setCommand(createCommand(new CommandType()));
+        CommandType type = createCommandType(CommandType.Type.ELECTRON_RUN);
+        setCommand(createCommand(type));
     }
 
     @Override

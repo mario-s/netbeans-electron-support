@@ -1,6 +1,7 @@
 package io.atom.electron;
 
 import io.atom.electron.cmd.Command;
+import io.atom.electron.cmd.CommandType;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,10 @@ public abstract class AbstractElectronAction implements ActionListener {
     TaskObserver createObserver() {
         return new TaskObserver();
     }
+    
+    final CommandType createCommandType(CommandType.Type type) {
+        return  new CommandType(type, getPreferences());
+    }
 
     ExecutionDescriptor getDescriptor() {
         return descriptor;
@@ -59,15 +64,6 @@ public abstract class AbstractElectronAction implements ActionListener {
         FileObject fo = context.getPrimaryFile();
         return FileUtil.getFileDisplayName(fo);
     }
-
-    private String getExecutable() {
-        //TODO review
-        String exe = preferences.getExecutable();
-        if (exe == null) {
-            exe = command.getExecutable();
-        }
-        return exe;
-    }
     
     final void setCommand(Command command) {
         this.command = command;
@@ -79,7 +75,7 @@ public abstract class AbstractElectronAction implements ActionListener {
 
     ProcessBuilder createProcessBuilder() {
 
-        String executable = getExecutable();
+        String executable = command.getExecutable();
         arguments.addAll(command.getArguments());
         
         arguments.add(getFileDisplayName());

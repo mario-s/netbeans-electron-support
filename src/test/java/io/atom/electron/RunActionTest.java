@@ -1,32 +1,30 @@
 package io.atom.electron;
 
 import java.util.concurrent.Future;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import static org.mockito.Matchers.any;
+import org.mockito.Mock;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import org.netbeans.junit.NbTestCase;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.openide.loaders.DataObject;
 
 /**
  *
  * @author spindizzy
  */
-public class RunActionTest extends NbTestCase {
+@RunWith(MockitoJUnitRunner.class)
+public class RunActionTest{
 
     private RunAction instance;
 
+    @Mock
     private TaskObserver taskObserver;
 
-    public RunActionTest(String testName) {
-        super(testName);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        taskObserver = mock(TaskObserver.class);
+    @Before
+    public void setUp() throws Exception {
 
         instance = new RunAction(mock(DataObject.class)) {
 

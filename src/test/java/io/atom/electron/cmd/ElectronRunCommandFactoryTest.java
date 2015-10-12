@@ -1,21 +1,30 @@
 package io.atom.electron.cmd;
 
+import io.atom.electron.Preferences;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import static org.mockito.Mockito.when;
+import org.mockito.runners.MockitoJUnitRunner;
 import static org.powermock.api.support.membermodification.MemberMatcher.field;
 
 /**
  *
  * @author spindizzy
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ElectronRunCommandFactoryTest {
     
     private ElectronRunCommandFactory classUnderTest;
     
+    @Mock
+    private Preferences preferences;
+    
     @Before
     public void setUp() {
-        classUnderTest = new ElectronRunCommandFactory();
+        classUnderTest = new ElectronRunCommandFactory(preferences);
     }
     
 
@@ -37,6 +46,17 @@ public class ElectronRunCommandFactoryTest {
         field(ElectronRunCommandFactory.class, "isWin").set(classUnderTest, false);
         Command result = classUnderTest.createCommand();
         assertEquals(ElectronRunCommandFactory.ELECTRON, result.getExecutable());
+    }
+    
+     /**
+     * Test of createCommand method, of class ElectronRunCommandFactory.
+     */
+    @Test
+    public void testCreateCommand_Executable() throws IllegalArgumentException, IllegalAccessException {
+        field(ElectronRunCommandFactory.class, "isWin").set(classUnderTest, false);
+        when(preferences.getExecutable()).thenReturn("test");
+        Command result = classUnderTest.createCommand();
+        assertEquals("test", result.getExecutable());
     }
     
 }

@@ -16,6 +16,7 @@ class ElectronPreferences implements Preferences{
     private static final String DEBUG_URL = "debug-url";
     private static final String DEF_DEBUG_URL = "http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=";
 
+    @Override
     public String getExecutable() {
         return forModule(ElectronPreferences.class).get(EXE, null);
     }
