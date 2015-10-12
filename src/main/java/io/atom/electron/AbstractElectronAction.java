@@ -1,7 +1,6 @@
 package io.atom.electron;
 
 import io.atom.electron.cmd.Command;
-import io.atom.electron.cmd.CommandType;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +47,8 @@ public abstract class AbstractElectronAction implements ActionListener {
         return new TaskObserver();
     }
     
-    final CommandType createCommandType(CommandType.Type type) {
-        return  new CommandType(type, getPreferences());
+    final DefaultCommandType createCommandType(DefaultCommandType.Type type) {
+        return  new DefaultCommandType(type, getPreferences());
     }
 
     ExecutionDescriptor getDescriptor() {

@@ -19,7 +19,6 @@ import org.openide.util.NbBundle.Messages;
 import static org.netbeans.api.extexecution.ExecutionService.newService;
 import static io.atom.electron.cmd.AbstractCommandFactory.createCommand;
 import io.atom.electron.cmd.Command;
-import io.atom.electron.cmd.CommandType;
 import io.atom.electron.cmd.CommandType.Type;
 import java.util.concurrent.Future;
 
@@ -43,7 +42,7 @@ public class DebugAction extends AbstractElectronAction {
 
     public DebugAction(DataObject context) {
         super(context);
-        CommandType type = createCommandType(Type.ELECTRON_DEBUG);
+        DefaultCommandType type = createCommandType(Type.ELECTRON_DEBUG);
         setCommand(createCommand(type));
     }
 
@@ -66,7 +65,7 @@ public class DebugAction extends AbstractElectronAction {
 
     void launchInspector() {
         if (inspectorTask == null || inspectorTask.isDone()) {
-            Command cmd = createCommand(new CommandType(Type.INSPECTOR));
+            Command cmd = createCommand(new DefaultCommandType(Type.INSPECTOR));
             ProcessBuilder processBuilder = createProcessBuilder(cmd);
             ExecutionService service = newService(processBuilder,
                     getDescriptor(), PROCESS_NAME);

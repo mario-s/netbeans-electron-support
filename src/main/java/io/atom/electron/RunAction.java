@@ -1,7 +1,6 @@
 package io.atom.electron;
 
 import static io.atom.electron.cmd.AbstractCommandFactory.createCommand;
-import io.atom.electron.cmd.CommandType;
 import java.awt.event.ActionEvent;
 import org.netbeans.api.extexecution.ExecutionService;
 import org.openide.awt.ActionID;
@@ -29,7 +28,7 @@ public class RunAction extends AbstractElectronAction {
 
     public RunAction(DataObject context) {
         super(context);
-        CommandType type = createCommandType(CommandType.Type.ELECTRON_RUN);
+        DefaultCommandType type = createCommandType(DefaultCommandType.Type.ELECTRON_RUN);
         setCommand(createCommand(type));
     }
 
