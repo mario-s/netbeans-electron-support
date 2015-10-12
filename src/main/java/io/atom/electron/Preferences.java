@@ -1,7 +1,7 @@
 package io.atom.electron;
 
 /**
- * Interface for user defined prefrences.
+ * Interface for user defined preferences.
  * @author spindizzy
  */
 public interface Preferences {
