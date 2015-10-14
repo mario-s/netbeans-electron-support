@@ -1,4 +1,4 @@
-package io.atom.electron;
+package io.atom.electron.options;
 
 /**
  * Interface for user defined preferences.

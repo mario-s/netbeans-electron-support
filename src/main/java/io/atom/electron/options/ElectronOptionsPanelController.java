@@ -1,4 +1,4 @@
-package io.atom.electron;
+package io.atom.electron.options;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

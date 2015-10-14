@@ -1,6 +1,6 @@
 package io.atom.electron.cmd;
 
-import io.atom.electron.Preferences;
+import io.atom.electron.options.Preferences;
 
 /**
  * Factory for the run command
@@ -21,11 +21,15 @@ class ElectronRunCommandFactory extends AbstractCommandFactory{
     }
     
     protected String createElectronCommand() {
-        String exe = preferences.getExecutable();
+        String exe = getExecutable();
         if (exe == null) {
             exe = createCommand(ELECTRON);
         }
         return exe;
+    }
+
+    private String getExecutable() {
+        return (preferences != null) ? preferences.getExecutable() : null;
     }
 
     protected Preferences getPreferences() {

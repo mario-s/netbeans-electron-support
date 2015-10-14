@@ -1,6 +1,6 @@
 package io.atom.electron.cmd;
 
-import io.atom.electron.Preferences;
+import io.atom.electron.options.Preferences;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -25,6 +25,17 @@ public class ElectronRunCommandFactoryTest {
     @Before
     public void setUp() {
         classUnderTest = new ElectronRunCommandFactory(preferences);
+    }
+    
+    /**
+     * Test of createCommand method, of class ElectronRunCommandFactory.
+     */
+    @Test
+    public void testCreateCommand_Win_PreferencesNull() throws IllegalArgumentException, IllegalAccessException {
+        classUnderTest = new ElectronRunCommandFactory(null);
+        field(ElectronRunCommandFactory.class, "isWin").set(classUnderTest, true);
+        Command result = classUnderTest.createCommand();
+        assertEquals(AbstractCommandFactory.CMD, result.getExecutable());
     }
     
 

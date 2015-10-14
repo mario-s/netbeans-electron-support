@@ -1,6 +1,6 @@
 package io.atom.electron.cmd;
 
-import io.atom.electron.Preferences;
+import io.atom.electron.options.Preferences;
 import java.util.List;
 
 /**

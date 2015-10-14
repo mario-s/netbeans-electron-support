@@ -1,6 +1,8 @@
 package io.atom.electron;
 
+import io.atom.electron.options.Preferences;
 import io.atom.electron.cmd.Command;
+import io.atom.electron.options.ElectronPreferences;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;

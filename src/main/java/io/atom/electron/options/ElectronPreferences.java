@@ -1,4 +1,4 @@
-package io.atom.electron;
+package io.atom.electron.options;
 
 import static org.openide.util.NbPreferences.forModule;
 
@@ -6,7 +6,7 @@ import static org.openide.util.NbPreferences.forModule;
  *
  * @author spindizzy
  */
-class ElectronPreferences implements Preferences{
+public class ElectronPreferences implements Preferences{
 
     private static final String EXE = "exe";
     

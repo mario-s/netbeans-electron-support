@@ -1,5 +1,6 @@
 package io.atom.electron;
 
+import io.atom.electron.options.Preferences;
 import io.atom.electron.cmd.CommandType;
 
 /**

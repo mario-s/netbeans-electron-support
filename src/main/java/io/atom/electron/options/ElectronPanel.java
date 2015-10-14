@@ -1,4 +1,4 @@
-package io.atom.electron;
+package io.atom.electron.options;
 
 import io.atom.electron.cmd.Command;
 import java.io.File;
@@ -13,6 +13,7 @@ import org.openide.util.Exceptions;
 import org.openide.util.NbBundle;
 
 import static io.atom.electron.cmd.AbstractCommandFactory.createCommand;
+import io.atom.electron.cmd.CommandType;
 import io.atom.electron.cmd.CommandType.Type;
 
 final class ElectronPanel extends javax.swing.JPanel {
@@ -208,7 +209,18 @@ final class ElectronPanel extends javax.swing.JPanel {
 
     private String buildCommandText() {
         StringBuilder builder = new StringBuilder();
-        Command cmd = createCommand(new DefaultCommandType(Type.ELECTRON_RUN));
+        Command cmd = createCommand(new CommandType() {
+
+            @Override
+            public Type getType() {
+                return Type.ELECTRON_RUN;
+            }
+
+            @Override
+            public Preferences getPreferences() {
+                return null;
+            }
+        });
         builder.append(cmd.getExecutable()).append(" ");
         cmd.getArguments().forEach(s -> builder.append(s).append(" "));
         return builder.toString().trim();
