@@ -21,7 +21,7 @@ public abstract class AbstractElectronAction implements ActionListener {
 
     private final ExecutionDescriptor descriptor;
 
-    private final ElectronPreferences preferences;
+    private final Preferences preferences;
 
     private final List<String> arguments;
     
@@ -55,7 +55,7 @@ public abstract class AbstractElectronAction implements ActionListener {
         return descriptor;
     }
 
-    ElectronPreferences getPreferences() {
+    Preferences getPreferences() {
         return preferences;
     }
     

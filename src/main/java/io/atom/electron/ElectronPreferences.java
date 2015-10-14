@@ -25,6 +25,7 @@ class ElectronPreferences implements Preferences{
         forModule(ElectronPreferences.class).put(EXE, path);
     }
 
+    @Override
     public String getDebugUrl() {
         return forModule(ElectronPreferences.class).get(DEBUG_URL, DEF_DEBUG_URL);
     }
