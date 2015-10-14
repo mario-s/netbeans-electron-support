@@ -1,4 +1,4 @@
-package io.atom.electron.options;
+package io.atom.electron.glue;
 
 /**
  * Interface for user defined preferences.

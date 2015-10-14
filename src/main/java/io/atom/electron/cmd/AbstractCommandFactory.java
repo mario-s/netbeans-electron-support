@@ -1,5 +1,6 @@
 package io.atom.electron.cmd;
 
+import io.atom.electron.glue.CommandType;
 import java.util.ArrayList;
 import java.util.List;
 

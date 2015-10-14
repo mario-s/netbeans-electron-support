@@ -1,7 +1,7 @@
 package io.atom.electron;
 
-import io.atom.electron.options.Preferences;
-import io.atom.electron.cmd.CommandType;
+import io.atom.electron.glue.Preferences;
+import io.atom.electron.glue.CommandType;
 
 /**
  * Defines thy type of the required command with additional preferences.

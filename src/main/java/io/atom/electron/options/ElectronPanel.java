@@ -1,5 +1,6 @@
 package io.atom.electron.options;
 
+import io.atom.electron.glue.Preferences;
 import io.atom.electron.cmd.Command;
 import java.io.File;
 import java.io.IOException;
@@ -13,8 +14,8 @@ import org.openide.util.Exceptions;
 import org.openide.util.NbBundle;
 
 import static io.atom.electron.cmd.AbstractCommandFactory.createCommand;
-import io.atom.electron.cmd.CommandType;
-import io.atom.electron.cmd.CommandType.Type;
+import io.atom.electron.glue.CommandType;
+import io.atom.electron.glue.CommandType.Type;
 
 final class ElectronPanel extends javax.swing.JPanel {
 

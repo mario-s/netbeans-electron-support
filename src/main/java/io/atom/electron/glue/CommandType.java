@@ -1,6 +1,4 @@
-package io.atom.electron.cmd;
-
-import io.atom.electron.options.Preferences;
+package io.atom.electron.glue;
 
 /**
  *

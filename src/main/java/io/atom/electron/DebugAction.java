@@ -19,7 +19,7 @@ import org.openide.util.NbBundle.Messages;
 import static org.netbeans.api.extexecution.ExecutionService.newService;
 import static io.atom.electron.cmd.AbstractCommandFactory.createCommand;
 import io.atom.electron.cmd.Command;
-import io.atom.electron.cmd.CommandType.Type;
+import io.atom.electron.glue.CommandType.Type;
 import java.util.concurrent.Future;
 
 @ActionID(

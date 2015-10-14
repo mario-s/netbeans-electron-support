@@ -1,5 +1,6 @@
 package io.atom.electron.options;
 
+import io.atom.electron.glue.Preferences;
 import static org.openide.util.NbPreferences.forModule;
 
 /**

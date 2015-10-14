@@ -1,6 +1,6 @@
 package io.atom.electron.cmd;
 
-import io.atom.electron.options.Preferences;
+import io.atom.electron.glue.Preferences;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
