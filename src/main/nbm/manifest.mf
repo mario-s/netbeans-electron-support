@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 AutoUpdate-Show-In-Client: true
-OpenIDE-Module: io.atom.electron
-OpenIDE-Module-Localizing-Bundle: io/atom/electron/Bundle.properties
+OpenIDE-Module: org.netbeans.modules.atom.electron
+OpenIDE-Module-Localizing-Bundle: org/netbeans/modules/atom/electron/Bundle.properties
 OpenIDE-Module-Specification-Version: 1.0
 
