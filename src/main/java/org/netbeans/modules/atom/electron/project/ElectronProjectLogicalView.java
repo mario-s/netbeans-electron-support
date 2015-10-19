@@ -23,7 +23,7 @@ import static org.openide.loaders.DataFolder.findFolder;
 
 /**
  *
- * @author Mario
+ * @author spindizzy
  */
 class ElectronProjectLogicalView implements LogicalViewProvider {
 
