@@ -29,7 +29,11 @@ public class ElectronProject implements Project {
     @Override
     public Lookup getLookup() {
         if (lookup == null) {
-            lookup = Lookups.fixed(new Object[]{});
+            lookup = Lookups.fixed(new Object[]{
+                this,
+                new ElectronProjectInformation(this),
+                new ElectronProjectLogicalView(this)
+            });
         }
         return lookup;
     }
