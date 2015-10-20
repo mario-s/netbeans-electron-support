@@ -5,7 +5,7 @@ import java.util.List;
 import javax.swing.event.ChangeListener;
 import org.netbeans.spi.project.ui.support.NodeList;
 import org.openide.filesystems.FileObject;
-import org.openide.loaders.DataObject;
+import static org.openide.loaders.DataObject.find;
 import org.openide.loaders.DataObjectNotFoundException;
 import org.openide.nodes.FilterNode;
 import org.openide.nodes.Node;
@@ -34,15 +34,25 @@ final class SourceNodeList implements NodeList<Node> {
     private List<Node> createNodeList(FileObject folder) {
         List<Node> result = new ArrayList<>();
         if (folder != null) {
-            for (FileObject child : folder.getChildren()) {
-                try {
-                    result.add(DataObject.find(child).getNodeDelegate());
-                } catch (DataObjectNotFoundException ex) {
-                    Exceptions.printStackTrace(ex);
-                }
-            }
+            ProjectSourceNode srcNode = new ProjectSourceNode();
+            result.add(srcNode);
+            addChildren(folder, srcNode);
         }
         return result;
+    }
+
+    private void addChildren(FileObject folder, ProjectSourceNode srcNode) {
+        List<Node> children = new ArrayList<>();
+        for (FileObject child : folder.getChildren()) {
+            try {
+                children.add(find(child).getNodeDelegate());
+            } catch (DataObjectNotFoundException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+        }
+        if (!children.isEmpty()) {
+            srcNode.getChildren().add(children.toArray(new Node[children.size()]));
+        }
     }
 
     @Override

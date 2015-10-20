@@ -5,7 +5,6 @@ import javax.swing.Icon;
 import org.netbeans.api.annotations.common.StaticResource;
 import org.netbeans.api.project.Project;
 import org.netbeans.api.project.ProjectInformation;
-import org.openide.filesystems.FileObject;
 import org.openide.util.ImageUtilities;
 
 /**
