@@ -31,8 +31,8 @@ import java.util.concurrent.Future;
 )
 @ActionReferences({
     @ActionReference(path = "Shortcuts", name = "S-C-F6"),
-    @ActionReference(path = "Loaders/text/javascript/Actions", position = 665, separatorAfter = 667),
-    @ActionReference(path = "Editors/text/javascript/Popup", position = 5065, separatorAfter = 5067)
+    @ActionReference(path = "Loaders/text/javascript/Actions", position = 660, separatorAfter = 667),
+    @ActionReference(path = "Editors/text/javascript/Popup", position = 5060, separatorAfter = 5067)
 })
 @Messages("CTL_DebugAction=Debug with Electron")
 public class DebugAction extends AbstractElectronAction {
