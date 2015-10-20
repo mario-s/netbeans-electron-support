@@ -34,9 +34,9 @@ final class SourceNodeList implements NodeList<Node> {
     private List<Node> createNodeList(FileObject folder) {
         List<Node> result = new ArrayList<>();
         if (folder != null) {
-            for (FileObject textsFolderFile : folder.getChildren()) {
+            for (FileObject child : folder.getChildren()) {
                 try {
-                    result.add(DataObject.find(textsFolderFile).getNodeDelegate());
+                    result.add(DataObject.find(child).getNodeDelegate());
                 } catch (DataObjectNotFoundException ex) {
                     Exceptions.printStackTrace(ex);
                 }
