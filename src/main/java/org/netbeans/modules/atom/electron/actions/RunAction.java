@@ -12,7 +12,7 @@ import org.openide.util.NbBundle.Messages;
 
 @ActionID(
         category = "Build",
-        id = "io.atom.electron.RunAction"
+        id = "org.netbeans.modules.atom.electron.RunAction"
 )
 @ActionRegistration(
         displayName = "#CTL_RunAction"

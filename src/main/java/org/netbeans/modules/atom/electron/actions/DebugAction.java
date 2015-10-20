@@ -24,7 +24,7 @@ import java.util.concurrent.Future;
 
 @ActionID(
         category = "Build",
-        id = "io.atom.electron.DebugAction"
+        id = "org.netbeans.modules.atom.electron.DebugAction"
 )
 @ActionRegistration(
         displayName = "#CTL_DebugAction"
