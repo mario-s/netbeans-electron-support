@@ -34,14 +34,14 @@ final class SourceNodeList implements NodeList<Node> {
     private List<Node> createNodeList(FileObject folder) {
         List<Node> result = new ArrayList<>();
         if (folder != null) {
-            ProjectSourceNode srcNode = new ProjectSourceNode();
+            SourceNode srcNode = new SourceNode();
             result.add(srcNode);
             addChildren(folder, srcNode);
         }
         return result;
     }
 
-    private void addChildren(FileObject folder, ProjectSourceNode srcNode) {
+    private void addChildren(FileObject folder, SourceNode srcNode) {
         List<Node> children = new ArrayList<>();
         for (FileObject child : folder.getChildren()) {
             try {

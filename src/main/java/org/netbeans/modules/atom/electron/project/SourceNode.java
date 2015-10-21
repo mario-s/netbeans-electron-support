@@ -19,17 +19,18 @@ import static org.openide.util.ImageUtilities.mergeImages;
  *
  * @author spindizzy
  */
-class ProjectSourceNode extends AbstractNode {
+final class SourceNode extends AbstractNode {
 
     @StaticResource
     private static final String FOLDER = "org/netbeans/modules/atom/electron/project/folder.png";
     
+    @StaticResource
     private static final String SRC_BADGE = "org/netbeans/modules/atom/electron/project/sources-badge.gif";
 
-    public ProjectSourceNode() {
+    public SourceNode() {
         super(new Index.ArrayChildren());
         
-        String name = NbBundle.getMessage(ProjectSourceNode.class, "LBL_ProjectsRootNode_SrcFolder");
+        String name = NbBundle.getMessage(SourceNode.class, "LBL_ProjectsRootNode_SrcFolder");
         setName(name);
         setDisplayName(name);
     }
