@@ -10,15 +10,15 @@ import org.openide.util.lookup.Lookups;
  *
  * @author spindizzy
  */
-public class ElectronProject implements Project {
+class ElectronProject implements Project {
 
     private final FileObject projectDir;
-    private final ProjectState state;
+    private final ProjectState projectState;
     private Lookup lookup;
 
-    public ElectronProject(FileObject projectDir, ProjectState state) {
+    ElectronProject(FileObject projectDir, ProjectState state) {
         this.projectDir = projectDir;
-        this.state = state;
+        this.projectState = state;
     }
 
     @Override
@@ -32,10 +32,15 @@ public class ElectronProject implements Project {
             lookup = Lookups.fixed(new Object[]{
                 this,
                 new ElectronProjectInformation(this),
-                new ElectronProjectLogicalView(this)
+                new ElectronProjectLogicalView(this),
+                new ElectronProjectDeleteOperation(this),
+                new ElectronActionsProvider(this)
             });
         }
         return lookup;
     }
 
+    ProjectState getProjectState() {
+        return projectState;
+    }
 }
