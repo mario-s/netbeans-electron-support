@@ -1,7 +1,13 @@
 package org.netbeans.modules.atom.electron.project;
 
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import javax.swing.Action;
 import org.netbeans.api.annotations.common.StaticResource;
+import org.netbeans.spi.project.ui.support.CommonProjectActions;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Index;
 import org.openide.util.NbBundle;
@@ -38,4 +44,9 @@ class ProjectSourceNode extends AbstractNode {
         return mergeImages(loadImage(FOLDER), loadImage(SRC_BADGE, false), 7, 7);
     }
 
+    @Override
+        public Action[] getActions(boolean arg0) {
+           return new Action[]{
+                CommonProjectActions.newFileAction()};
+        }
 }

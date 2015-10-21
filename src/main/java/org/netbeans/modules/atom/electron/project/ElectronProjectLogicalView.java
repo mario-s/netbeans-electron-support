@@ -67,6 +67,7 @@ class ElectronProjectLogicalView implements LogicalViewProvider {
                 CommonProjectActions.copyProjectAction(),
                 CommonProjectActions.deleteProjectAction(),
                 CommonProjectActions.closeProjectAction(),
+                CommonProjectActions.setAsMainProjectAction(),
                 CommonProjectActions.customizeProjectAction()};
         }
 
