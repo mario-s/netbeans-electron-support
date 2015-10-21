@@ -32,13 +32,7 @@ final class ProjectNode extends FilterNode {
 
     @Override
     public Action[] getActions(boolean arg0) {
-        return new Action[]{CommonProjectActions.newFileAction(),
-            CommonProjectActions.copyProjectAction(),
-            CommonProjectActions.deleteProjectAction(),
-            CommonProjectActions.closeProjectAction(),
-            CommonProjectActions.setAsMainProjectAction(),
-            CommonProjectActions.renameProjectAction(),
-            CommonProjectActions.customizeProjectAction()};
+        return CommonProjectActions.forType("org-netbeans-modules-atom-electron");
     }
 
     @Override
