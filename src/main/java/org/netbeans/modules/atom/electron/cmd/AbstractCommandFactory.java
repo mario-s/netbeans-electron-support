@@ -3,6 +3,7 @@ package org.netbeans.modules.atom.electron.cmd;
 import org.netbeans.modules.atom.electron.glue.CommandType;
 import java.util.ArrayList;
 import java.util.List;
+import org.openide.util.Utilities;
 
 /**
  * A parent class for command factories.
@@ -11,15 +12,13 @@ import java.util.List;
  */
 public abstract class AbstractCommandFactory {
 
-    private static final String OSNAME = "os.name";
-    private static final String WIN = "windows";
     private final boolean isWin;
 
     static final String CMD = "cmd";
     static final String CMD_SWITCH = "/c";
 
     AbstractCommandFactory() {
-        isWin = System.getProperty(OSNAME).toLowerCase().contains(WIN);
+        isWin = Utilities.isWindows();
     }
 
     public static Command createCommand(CommandType cmdType) {
