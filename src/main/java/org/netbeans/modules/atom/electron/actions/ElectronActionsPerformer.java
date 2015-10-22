@@ -20,6 +20,12 @@ public final class ElectronActionsPerformer {
         }
     }
     
+    public static void performDebugAction(DataObject dao) {
+        if(dao != null){
+            perform(new DebugAction(dao));
+        }
+    }
+    
     private static void perform(ActionListener action) {
         action.actionPerformed(null);
     }

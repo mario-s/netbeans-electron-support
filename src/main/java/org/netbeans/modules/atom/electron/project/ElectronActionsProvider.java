@@ -1,16 +1,17 @@
 package org.netbeans.modules.atom.electron.project;
 
-import org.netbeans.modules.atom.electron.actions.AbstractElectronAction;
-import org.netbeans.modules.atom.electron.actions.ElectronActionsPerformer;
-import org.netbeans.modules.atom.electron.actions.RunAction;
+
 import org.netbeans.spi.project.ActionProvider;
 import static org.netbeans.spi.project.ActionProvider.COMMAND_DELETE;
-import org.netbeans.spi.project.ui.support.DefaultProjectOperations;
+
 import org.openide.filesystems.FileObject;
 import org.openide.loaders.DataObject;
 import org.openide.loaders.DataObjectNotFoundException;
 import org.openide.util.Exceptions;
 import org.openide.util.Lookup;
+
+import static org.netbeans.spi.project.ui.support.DefaultProjectOperations.*;
+import static org.netbeans.modules.atom.electron.actions.ElectronActionsPerformer.*;
 
 /**
  *
@@ -40,10 +41,14 @@ final class ElectronActionsProvider implements ActionProvider {
     public void invokeAction(String command, Lookup context) throws IllegalArgumentException {
         switch (command) {
             case COMMAND_DELETE:
-                DefaultProjectOperations.performDefaultDeleteOperation(project);
+                performDefaultDeleteOperation(project);
                 break;
             case COMMAND_RUN:
-                ElectronActionsPerformer.performRunAction(getDataObject(project));
+                performRunAction(getDataObject(project));
+                break;
+            case COMMAND_DEBUG:
+                performDebugAction(getDataObject(
+                        project));
                 break;
             default:
         }
