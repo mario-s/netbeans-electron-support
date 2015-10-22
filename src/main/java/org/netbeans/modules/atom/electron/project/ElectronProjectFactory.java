@@ -15,11 +15,6 @@ import org.openide.util.lookup.ServiceProvider;
  */
 @ServiceProvider(service = ProjectFactory.class)
 public class ElectronProjectFactory implements ProjectFactory2 {
-    
-    private static final String SRC = "src/";
-    private static final String PACKAGE = SRC + "package.json";
-    private static final String MAIN = SRC + "main.js";
-    private static final String INDEX = SRC + "index.html";
 
     @Override
     public ProjectManager.Result isProject2(FileObject fo) {
@@ -32,10 +27,8 @@ public class ElectronProjectFactory implements ProjectFactory2 {
 
     @Override
     public boolean isProject(FileObject projectDirectory) {
-        boolean hasPackage = projectDirectory.getFileObject(PACKAGE) != null;
-        boolean hasMain = projectDirectory.getFileObject(MAIN) != null;
-        boolean hasIndex = projectDirectory.getFileObject(INDEX) != null;
-        return hasPackage && hasMain && hasIndex;
+        PackagesFinder finder = new PackagesFinder(projectDirectory);
+        return finder.hasPackage() && finder.hasMainJs() && finder.hasIndex();
     }
 
     @Override
