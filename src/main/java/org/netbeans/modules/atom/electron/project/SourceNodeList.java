@@ -17,7 +17,7 @@ import org.openide.util.Exceptions;
  */
 final class SourceNodeList implements NodeList<Node> {
 
-    private static final String SRC = "src";
+    static final String SRC = "src";
 
     private final ElectronProject project;
 
