@@ -19,8 +19,8 @@ import org.openide.util.NbBundle.Messages;
 )
 @ActionReferences({
     @ActionReference(path = "Shortcuts", name = "C-F6"),
-    @ActionReference(path = "Loaders/text/javascript/Actions", position = 650),
-    @ActionReference(path = "Editors/text/javascript/Popup", position = 5050)
+    @ActionReference(path = "Loaders/text/javascript/Actions", position = 655),
+    @ActionReference(path = "Editors/text/javascript/Popup", position = 5055)
 })
 @Messages("CTL_RunAction=Run with Electron")
 public class RunAction extends AbstractElectronAction {
