@@ -11,3 +11,12 @@ The plugin contains a very simple project template to help you build your first 
 
 The main.js file can be launched from the editor, or via the context menu. The plugin also supports debugging with node inspector.
 
+### Project Layout ####
+The directory structure of the enclosed template looks like this:
+APP/<br/>
+&nbsp;&nbsp;src/<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;index.html<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;main.js<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;package.json<br/>
+
+At the moment the plugin can recognize your project as an Electron application only if it is in this directory structure.
