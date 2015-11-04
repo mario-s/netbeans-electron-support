@@ -1,7 +1,6 @@
 package org.netbeans.modules.atom.electron.actions;
 
 import java.awt.event.ActionListener;
-import javax.swing.Action;
 import org.openide.loaders.DataObject;
 
 /**

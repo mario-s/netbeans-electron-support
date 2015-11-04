@@ -28,6 +28,7 @@ class ElectronProject implements Project {
 
     @Override
     public Lookup getLookup() {
+        //TODO register customizer for project properties here
         if (lookup == null) {
             lookup = Lookups.fixed(new Object[]{
                 this,
