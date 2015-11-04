@@ -4,7 +4,7 @@ A simple plugin for the NetBeans IDE to launch electron apps.
 [![Build Status](https://travis-ci.org/travis-ci/travis-build.png?branch=master)](https://travis-ci.org/Mario-S/netbeans-electron-support/builds)
 
 ## Requirements ##
-This plugin assumes you already installed [Node.js](https://nodejs.org/en/) and [Electron](http://electron.atom.io/).
+This plugin assumes you installed [Node.js](https://nodejs.org/en/) and [Electron](http://electron.atom.io/) already.
 
 ## Getting started ###
 The plugin contains a very simple project template to help you build your first electron app.
