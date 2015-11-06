@@ -33,31 +33,31 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 @TemplateRegistration(folder = "Project/ClientSide", 
-        displayName = "#ElectronStarter_displayName", 
+        displayName = "#ElectronApplication_displayName", 
         description = "ElectronStarterDescription.html", 
         iconBase = "org/netbeans/modules/atom/electron/template/ElectronStarter.png", content = "ElectronStarterProject.zip")
-@Messages("ElectronStarter_displayName=Electron Starter")
-public class ElectronStarterWizardIterator implements WizardDescriptor./*Progress*/InstantiatingIterator {
+@Messages("ElectronApplication_displayName=Electron Application")
+public class ElectronApplicationWizardIterator implements WizardDescriptor./*Progress*/InstantiatingIterator {
 
     private int index;
     private WizardDescriptor.Panel[] panels;
     private WizardDescriptor wiz;
 
-    public ElectronStarterWizardIterator() {
+    public ElectronApplicationWizardIterator() {
     }
 
-    public static ElectronStarterWizardIterator createIterator() {
-        return new ElectronStarterWizardIterator();
+    public static ElectronApplicationWizardIterator createIterator() {
+        return new ElectronApplicationWizardIterator();
     }
 
     private WizardDescriptor.Panel[] createPanels() {
         return new WizardDescriptor.Panel[]{
-            new ElectronStarterWizardPanel(),};
+            new ElectronApplicationWizardPanel(),};
     }
 
     private String[] createSteps() {
         return new String[]{
-            NbBundle.getMessage(ElectronStarterWizardIterator.class, "LBL_CreateProjectStep")
+            NbBundle.getMessage(ElectronApplicationWizardIterator.class, "LBL_CreateProjectStep")
         };
     }
 

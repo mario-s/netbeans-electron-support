@@ -13,25 +13,25 @@ import org.openide.util.NbBundle;
 /**
  * Panel just asking for basic info.
  */
-public class ElectronStarterWizardPanel implements WizardDescriptor.Panel,
+public class ElectronApplicationWizardPanel implements WizardDescriptor.Panel,
         WizardDescriptor.ValidatingPanel, WizardDescriptor.FinishablePanel {
 
     private WizardDescriptor wizardDescriptor;
-    private ElectronStarterPanelVisual component;
+    private ElectronApplicationPanelVisual component;
 
-    public ElectronStarterWizardPanel() {
+    public ElectronApplicationWizardPanel() {
     }
 
     public Component getComponent() {
         if (component == null) {
-            component = new ElectronStarterPanelVisual(this);
-            component.setName(NbBundle.getMessage(ElectronStarterWizardPanel.class, "LBL_CreateProjectStep"));
+            component = new ElectronApplicationPanelVisual(this);
+            component.setName(NbBundle.getMessage(ElectronApplicationWizardPanel.class, "LBL_CreateProjectStep"));
         }
         return component;
     }
 
     public HelpCtx getHelp() {
-        return new HelpCtx(ElectronStarterWizardPanel.class);
+        return new HelpCtx(ElectronApplicationWizardPanel.class);
     }
 
     public boolean isValid() {

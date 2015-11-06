@@ -11,13 +11,13 @@ import org.openide.WizardDescriptor;
 import org.openide.WizardValidationException;
 import org.openide.filesystems.FileUtil;
 
-public class ElectronStarterPanelVisual extends JPanel implements DocumentListener {
+public class ElectronApplicationPanelVisual extends JPanel implements DocumentListener {
 
     public static final String PROP_PROJECT_NAME = "projectName";
 
-    private ElectronStarterWizardPanel panel;
+    private ElectronApplicationWizardPanel panel;
 
-    public ElectronStarterPanelVisual(ElectronStarterWizardPanel panel) {
+    public ElectronApplicationPanelVisual(ElectronApplicationWizardPanel panel) {
         initComponents();
         this.panel = panel;
         // Register listener on the textFields to make the automatic updates
@@ -46,13 +46,13 @@ public class ElectronStarterPanelVisual extends JPanel implements DocumentListen
         createdFolderTextField = new javax.swing.JTextField();
 
         projectNameLabel.setLabelFor(projectNameTextField);
-        org.openide.awt.Mnemonics.setLocalizedText(projectNameLabel, org.openide.util.NbBundle.getMessage(ElectronStarterPanelVisual.class, "ElectronStarterPanelVisual.projectNameLabel.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(projectNameLabel, org.openide.util.NbBundle.getMessage(ElectronApplicationPanelVisual.class, "ElectronApplicationPanelVisual.projectNameLabel.text")); // NOI18N
 
         projectLocationLabel.setLabelFor(projectLocationTextField);
-        org.openide.awt.Mnemonics.setLocalizedText(projectLocationLabel, org.openide.util.NbBundle.getMessage(ElectronStarterPanelVisual.class, "ElectronStarterPanelVisual.projectLocationLabel.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(projectLocationLabel, org.openide.util.NbBundle.getMessage(ElectronApplicationPanelVisual.class, "ElectronApplicationPanelVisual.projectLocationLabel.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(browseButton, org.openide.util.NbBundle.getMessage(ElectronStarterPanelVisual.class, "ElectronStarterPanelVisual.browseButton.text")); // NOI18N
-        browseButton.setActionCommand(org.openide.util.NbBundle.getMessage(ElectronStarterPanelVisual.class, "ElectronStarterPanelVisual.browseButton.actionCommand")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(browseButton, org.openide.util.NbBundle.getMessage(ElectronApplicationPanelVisual.class, "ElectronApplicationPanelVisual.browseButton.text")); // NOI18N
+        browseButton.setActionCommand(org.openide.util.NbBundle.getMessage(ElectronApplicationPanelVisual.class, "ElectronApplicationPanelVisual.browseButton.actionCommand")); // NOI18N
         browseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 browseButtonActionPerformed(evt);
@@ -60,7 +60,7 @@ public class ElectronStarterPanelVisual extends JPanel implements DocumentListen
         });
 
         createdFolderLabel.setLabelFor(createdFolderTextField);
-        org.openide.awt.Mnemonics.setLocalizedText(createdFolderLabel, org.openide.util.NbBundle.getMessage(ElectronStarterPanelVisual.class, "ElectronStarterPanelVisual.createdFolderLabel.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(createdFolderLabel, org.openide.util.NbBundle.getMessage(ElectronApplicationPanelVisual.class, "ElectronApplicationPanelVisual.createdFolderLabel.text")); // NOI18N
 
         createdFolderTextField.setEditable(false);
 
