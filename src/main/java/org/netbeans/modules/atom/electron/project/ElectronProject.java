@@ -1,5 +1,6 @@
 package org.netbeans.modules.atom.electron.project;
 
+import org.netbeans.modules.atom.electron.project.customizer.ElectronCustomizerProvider;
 import org.netbeans.api.project.Project;
 import org.netbeans.spi.project.ProjectState;
 import org.openide.filesystems.FileObject;
@@ -10,7 +11,7 @@ import org.openide.util.lookup.Lookups;
  *
  * @author spindizzy
  */
-class ElectronProject implements Project {
+public class ElectronProject implements Project {
 
     private final FileObject projectDir;
     private final ProjectState projectState;
@@ -28,14 +29,14 @@ class ElectronProject implements Project {
 
     @Override
     public Lookup getLookup() {
-        //TODO register customizer for project properties here
         if (lookup == null) {
             lookup = Lookups.fixed(new Object[]{
                 this,
                 new ElectronProjectInformation(this),
                 new ElectronProjectLogicalView(this),
                 new ElectronProjectDeleteOperation(this),
-                new ElectronActionsProvider(this)
+                new ElectronActionsProvider(this),
+                new ElectronCustomizerProvider(this)
             });
         }
         return lookup;
