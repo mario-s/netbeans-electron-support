@@ -11,7 +11,7 @@ import org.openide.util.lookup.Lookups;
  *
  * @author spindizzy
  */
-public class ElectronProject implements Project {
+class ElectronProject implements Project {
 
     private final FileObject projectDir;
     private final ProjectState projectState;
