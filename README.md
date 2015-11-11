@@ -1,5 +1,7 @@
 # netbeans-electron-support
-A simple plugin for the NetBeans IDE to launch electron apps. 
+A simple plugin for the NetBeans IDE to launch Electron apps. 
+
+I started to develop this because I was not satisfied with the Node.js plugin and support for Electron apps in NetBeans 8.0.x. However with NetBeans 8.1 this is obsolete because the support for Node.js was enhanced and therefore also for Electron.
 
 [![Build Status](https://travis-ci.org/travis-ci/travis-build.png?branch=master)](https://travis-ci.org/Mario-S/netbeans-electron-support/builds)
 
