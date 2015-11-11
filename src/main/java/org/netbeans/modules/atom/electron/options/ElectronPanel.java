@@ -137,7 +137,7 @@ final class ElectronPanel extends javax.swing.JPanel {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(txtDebugUrl, javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(errLblPath, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtPath, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                                            .addComponent(txtPath, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
                                             .addComponent(txtRunCmd, javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtDebugPort, javax.swing.GroupLayout.Alignment.LEADING))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

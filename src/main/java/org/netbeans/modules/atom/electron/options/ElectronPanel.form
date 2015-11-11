@@ -48,7 +48,7 @@
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="txtDebugUrl" alignment="0" max="32767" attributes="0"/>
                                           <Component id="errLblPath" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtPath" alignment="0" pref="193" max="32767" attributes="0"/>
+                                          <Component id="txtPath" alignment="0" pref="197" max="32767" attributes="0"/>
                                           <Component id="txtRunCmd" alignment="0" max="32767" attributes="0"/>
                                           <Component id="txtDebugPort" alignment="0" max="32767" attributes="0"/>
                                       </Group>
