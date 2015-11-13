@@ -35,7 +35,7 @@ import java.util.concurrent.Future;
     @ActionReference(path = "Editors/text/javascript/Popup", position = 5065, separatorAfter = 5067)
 })
 @Messages("CTL_DebugAction=Debug with Electron")
-public class DebugAction extends AbstractElectronAction {
+public class DebugAction extends AbstractDataObjectElectronAction {
     private static final String PROCESS_NAME = "node-inspector";
 
     private static Future<Integer> inspectorTask;

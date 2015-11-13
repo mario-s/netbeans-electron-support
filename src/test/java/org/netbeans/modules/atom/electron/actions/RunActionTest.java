@@ -29,7 +29,7 @@ public class RunActionTest{
         instance = new RunAction(mock(DataObject.class)) {
 
             @Override
-            String getFileDisplayName() {
+            protected String getFileDisplayName() {
                 return "test.js";
             }
 

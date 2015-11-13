@@ -23,7 +23,7 @@ import org.openide.util.NbBundle.Messages;
     @ActionReference(path = "Editors/text/javascript/Popup", position = 5055)
 })
 @Messages("CTL_RunAction=Run with Electron")
-public class RunAction extends AbstractElectronAction {
+public class RunAction extends AbstractDataObjectElectronAction {
     private static final String PROCESS_NAME = "Electron";
 
     public RunAction(DataObject context) {

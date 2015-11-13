@@ -19,7 +19,6 @@ import org.openide.loaders.DataObject;
  */
 public abstract class AbstractElectronAction implements ActionListener {
 
-    private final DataObject context;
 
     private final ExecutionDescriptor descriptor;
 
@@ -29,8 +28,7 @@ public abstract class AbstractElectronAction implements ActionListener {
     
     private Command command;
 
-    public AbstractElectronAction(DataObject context) {
-        this.context = context;
+    public AbstractElectronAction() {
         this.preferences = new ElectronPreferences();
         this.arguments = new ArrayList<>();
         descriptor = new ExecutionDescriptor()
@@ -41,9 +39,6 @@ public abstract class AbstractElectronAction implements ActionListener {
                 .errLineBased(true);
     }
 
-    DataObject getContext() {
-        return context;
-    }
 
     TaskObserver createObserver() {
         return new TaskObserver();
@@ -61,11 +56,6 @@ public abstract class AbstractElectronAction implements ActionListener {
         return preferences;
     }
     
-    String getFileDisplayName() {
-        FileObject fo = context.getPrimaryFile();
-        return FileUtil.getFileDisplayName(fo);
-    }
-    
     final void setCommand(Command command) {
         this.command = command;
     }
@@ -73,6 +63,8 @@ public abstract class AbstractElectronAction implements ActionListener {
     final Command getCommand() {
         return command;
     }
+    
+    protected abstract String getFileDisplayName();
 
     ProcessBuilder createProcessBuilder() {
 
