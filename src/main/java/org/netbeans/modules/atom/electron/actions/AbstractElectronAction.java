@@ -3,21 +3,18 @@ package org.netbeans.modules.atom.electron.actions;
 import org.netbeans.modules.atom.electron.glue.Preferences;
 import org.netbeans.modules.atom.electron.cmd.Command;
 import org.netbeans.modules.atom.electron.options.ElectronPreferences;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.AbstractAction;
 import org.netbeans.api.extexecution.ExecutionDescriptor;
 import org.netbeans.api.extexecution.ProcessBuilder;
-import org.openide.filesystems.FileObject;
-import org.openide.filesystems.FileUtil;
-import org.openide.loaders.DataObject;
 
 /**
  * Parent class for action to execute electron.
  *
  * @author spindizzy
  */
-public abstract class AbstractElectronAction implements ActionListener {
+public abstract class AbstractElectronAction extends AbstractAction {
 
 
     private final ExecutionDescriptor descriptor;
