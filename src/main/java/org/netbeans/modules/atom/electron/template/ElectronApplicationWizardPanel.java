@@ -15,6 +15,8 @@ import org.openide.util.NbBundle;
  */
 public class ElectronApplicationWizardPanel implements WizardDescriptor.Panel,
         WizardDescriptor.ValidatingPanel, WizardDescriptor.FinishablePanel {
+    
+    private final Set<ChangeListener> listeners = new HashSet<>(1); // or can use ChangeSupport in NB 6.0
 
     private WizardDescriptor wizardDescriptor;
     private ElectronApplicationPanelVisual component;
@@ -38,8 +40,6 @@ public class ElectronApplicationWizardPanel implements WizardDescriptor.Panel,
         getComponent();
         return component.valid(wizardDescriptor);
     }
-
-    private final Set<ChangeListener> listeners = new HashSet<ChangeListener>(1); // or can use ChangeSupport in NB 6.0
 
     public final void addChangeListener(ChangeListener l) {
         synchronized (listeners) {
